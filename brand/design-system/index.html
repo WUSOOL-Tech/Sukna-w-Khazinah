@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>سكنة وخزينة — نظام التصميم</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="../motion/motion.css">
+<style>
+  section { padding-block: var(--sk-space-9); }
+  .swatch { min-height: 120px; padding: var(--sk-space-4); display: flex; flex-direction: column; justify-content: flex-end; }
+  .swatch code { font-size: var(--sk-font-size-sm); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--sk-space-3); align-items: center; }
+  .hero { padding-block-start: var(--sk-space-10); }
+  .hero img { inline-size: min(360px, 70vw); display: block; }
+  code { font-family: "IBM Plex Sans Arabic", monospace; direction: ltr; unicode-bidi: isolate; }
+</style>
+</head>
+<body>
+<header class="sk-surface-yellow sk-band hero">
+  <div class="sk-container">
+    <img class="sk-anim-ascend" src="../logo/svg/sukna-w-khazinah_mark-green.svg" alt="سكنة وخزينة">
+    <h1 class="sk-h1 sk-anim-rise" style="margin-top:var(--sk-space-6);animation-delay:200ms">نظام التصميم</h1>
+    <p class="sk-lead sk-anim-rise" style="color:var(--sk-color-brand-ink);animation-delay:280ms">رموز، مكوّنات، وحركة — مرجع حيّ لكل من يبني لـ«سكنة وخزينة».</p>
+  </div>
+</header>
+
+<main class="sk-container">
+  <section>
+    <h2 class="sk-h2">الألوان</h2><span class="sk-rule sk-rule--accent"></span>
+    <div class="sk-grid">
+      <div class="swatch sk-surface-yellow"><b>أصفر خزينة</b><code>--sk-color-brand-yellow · #F0FF0B</code></div>
+      <div class="swatch sk-surface-green"><b>أخضر سكنة</b><code>--sk-color-brand-green · #02C277</code></div>
+      <div class="swatch sk-surface-ink"><b>حبر</b><code>--sk-color-brand-ink · #0B2A1E</code></div>
+      <div class="swatch" style="background:var(--sk-color-brand-deep);color:#fff"><b>أخضر عميق</b><code>--sk-color-brand-deep · #00563A</code></div>
+      <div class="swatch sk-surface-paper" style="border:1px solid var(--sk-color-semantic-border)"><b>ورق</b><code>--sk-color-brand-paper · #F6F8F5</code></div>
+    </div>
+    <p class="sk-caption" style="margin-top:var(--sk-space-4)">الأخضر على الأصفر (2.1:1) للشعار والأشكال الكبيرة فقط. على الأخضر تُكتب النصوص بالحبر. راجع <a href="contrast-report.md">contrast-report.md</a>.</p>
+  </section>
+
+  <section>
+    <h2 class="sk-h2">الخطوط</h2><span class="sk-rule sk-rule--accent"></span>
+    <p class="sk-h-hero" style="margin:0">استفد مرتين</p>
+    <p class="sk-h2" style="margin:0">Changa 800 — للعناوين</p>
+    <p class="sk-lead">IBM Plex Sans Arabic — للنصوص والواجهات. بعد مرور خمس سنوات من استلام الشقة يُفتح للمستفيد الاستحقاق مرة أخرى.</p>
+  </section>
+
+  <section>
+    <h2 class="sk-h2">الأزرار</h2><span class="sk-rule sk-rule--accent"></span>
+    <div class="row">
+      <button class="sk-btn sk-btn--primary sk-btn--lg">قدّم الآن <span class="sk-arrow">←</span></button>
+      <button class="sk-btn sk-btn--secondary">احسب استحقاقك</button>
+      <button class="sk-btn sk-btn--outline">الشروط والأحكام</button>
+      <button class="sk-btn sk-btn--ghost">الأسئلة الشائعة</button>
+      <button class="sk-btn sk-btn--primary" disabled>غير متاح</button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sk-h2">الوسوم والحقول</h2><span class="sk-rule sk-rule--accent"></span>
+    <div class="row" style="margin-bottom:var(--sk-space-6)">
+      <span class="sk-badge"><span class="sk-dot"></span> الاستفادة الأولى</span>
+      <span class="sk-badge sk-badge--yellow">جديد</span>
+      <span class="sk-badge sk-badge--ink">بعد 5 سنوات</span>
+    </div>
+    <div class="sk-grid">
+      <div class="sk-field"><label class="sk-label" for="cid">الرقم المدني</label><input class="sk-input" id="cid" inputmode="numeric" placeholder="12345678"><span class="sk-help">8 أرقام كما في البطاقة.</span></div>
+      <div class="sk-field"><label class="sk-label" for="ph">رقم الهاتف</label><input class="sk-input" id="ph" aria-invalid="true" value="9123"><span class="sk-error">رقم الهاتف يجب أن يكون 8 أرقام.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sk-h2">البطاقات والأرقام</h2><span class="sk-rule sk-rule--accent"></span>
+    <div class="sk-grid sk-stagger">
+      <article class="sk-card sk-anim-rise" style="--i:0"><h3 class="sk-h3">شقق مدينة السلطان هيثم</h3><p class="sk-caption">غرفتان وثلاث غرف</p></article>
+      <article class="sk-card sk-card--poster sk-surface-yellow sk-anim-rise" style="--i:1"><h3 class="sk-h3">استفد مرتين</h3><p>شقة اليوم، واستحقاق جديد بعد 5 سنوات.</p></article>
+      <div class="sk-stat sk-anim-rise" style="--i:2"><span class="sk-stat__value">2×</span><span class="sk-stat__label">استفادتان بدل واحدة</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sk-h2">مكوّن المسار</h2><span class="sk-rule sk-rule--accent"></span>
+    <div class="sk-journey">
+      <div class="sk-journey__step sk-anim-ascend sk-beat-1"><div class="sk-journey__index">١</div><b>الاستفادة الأولى</b><br>شقة في مدينة السلطان هيثم.</div>
+      <div class="sk-journey__gap">5 سنوات من استلام الشقة</div>
+      <div class="sk-journey__step sk-journey__step--second sk-anim-ascend sk-beat-2"><div class="sk-journey__index">٢</div><b>الاستفادة الثانية</b><br>أرض، أو دعم حكومي لوحدة سكنية.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sk-h2">الحركة</h2><span class="sk-rule sk-rule--accent"></span>
+    <div class="row"><div class="sk-loader" role="status" aria-label="جارٍ التحميل"><span></span><span></span></div><span class="sk-caption">المحمّل: نقطتان على إيقاع مزدوج.</span></div>
+    <p style="margin-top:var(--sk-space-4)"><a href="../motion/logo-reveal.html">شاهد ظهور الشعار المتحرك ←</a></p>
+  </section>
+</main>
+<footer class="sk-surface-ink" style="padding-block:var(--sk-space-8)">
+  <div class="sk-container">استفد اليوم بشقة، واستفد مرة أخرى بعد 5 سنوات.</div>
+</footer>
+</body>
+</html>

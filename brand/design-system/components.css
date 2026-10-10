@@ -1,0 +1,135 @@
+/* Sukna w Khazinah — base + component layer.
+   Load order: fonts.css → tokens.css → components.css (→ ../motion/motion.css).
+   Everything is RTL-first; logical properties keep it correct in LTR too. */
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--sk-font-family-text);
+  font-size: var(--sk-font-size-md);
+  line-height: var(--sk-font-line-height-body);
+  color: var(--sk-color-semantic-text-primary);
+  background: var(--sk-color-semantic-bg-canvas);
+}
+h1, h2, h3, .sk-display {
+  font-family: var(--sk-font-family-display);
+  font-weight: var(--sk-font-weight-bold);
+  line-height: var(--sk-font-line-height-heading);
+  margin: 0 0 var(--sk-space-4);
+}
+.sk-h-hero { font-size: clamp(var(--sk-font-size-5xl), 7vw, var(--sk-font-size-8xl)); line-height: var(--sk-font-line-height-tight); font-weight: var(--sk-font-weight-extrabold); }
+.sk-h1 { font-size: clamp(var(--sk-font-size-4xl), 4.5vw, var(--sk-font-size-6xl)); line-height: var(--sk-font-line-height-tight); }
+.sk-h2 { font-size: clamp(var(--sk-font-size-3xl), 3vw, var(--sk-font-size-5xl)); }
+.sk-h3 { font-size: var(--sk-font-size-2xl); }
+.sk-lead { font-size: var(--sk-font-size-xl); color: var(--sk-color-semantic-text-secondary); }
+.sk-caption { font-size: var(--sk-font-size-sm); color: var(--sk-color-semantic-text-muted); }
+.sk-num { font-variant-numeric: tabular-nums; }
+a { color: var(--sk-color-semantic-text-link); text-underline-offset: 0.25em; }
+:focus-visible { outline: 3px solid var(--sk-color-semantic-focus-ring); outline-offset: 2px; box-shadow: 0 0 0 6px var(--sk-color-brand-yellow); }
+
+/* ---------- Surfaces ---------- */
+.sk-surface-yellow { background: var(--sk-color-brand-yellow); color: var(--sk-color-brand-ink); }
+.sk-surface-green  { background: var(--sk-color-brand-green);  color: var(--sk-color-brand-ink); }
+.sk-surface-ink    { background: var(--sk-color-brand-ink);    color: var(--sk-color-brand-yellow); }
+.sk-surface-paper  { background: var(--sk-color-brand-paper);  color: var(--sk-color-brand-ink); }
+
+/* Ascent band: bottom edge rises to the right at the logo angle (tan 7.5° ≈ 0.1317). */
+.sk-band { --sk-band-rise: calc(100vw * 0.1317); clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--sk-band-rise)), 0 100%); padding-block-end: calc(var(--sk-band-rise) + var(--sk-space-6)); }
+
+/* Signature chamfer — cut corners from the logo's bevelled terminals. */
+.sk-chamfer {
+  --c: var(--sk-radius-chamfer);
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
+}
+
+/* ---------- Ascent rule (the logo's underline) ---------- */
+.sk-rule { display: block; width: 72px; height: var(--sk-border-width-rule); background: currentColor; transform: rotate(var(--sk-angle-ascent)); transform-origin: right center; margin-block: var(--sk-space-3) var(--sk-space-5); border-radius: 1px; }
+.sk-rule--long { width: 100%; }
+.sk-rule--accent { color: var(--sk-color-brand-green); }
+
+/* ---------- Dot motif ---------- */
+.sk-dot { display: inline-block; inline-size: 0.6em; block-size: 0.6em; border-radius: var(--sk-radius-pill); background: currentColor; vertical-align: 0.05em; }
+.sk-dots-2 { display: inline-flex; gap: 0.25em; }   /* two dots = two benefits */
+.sk-list { list-style: none; padding: 0; margin: 0; }
+.sk-list li { position: relative; padding-inline-start: 1.5em; margin-block-end: var(--sk-space-2); }
+.sk-list li::before { content: ""; position: absolute; inset-inline-start: 0.2em; top: 0.7em; inline-size: 0.5em; block-size: 0.5em; border-radius: 50%; background: var(--sk-color-brand-green); }
+
+/* ---------- Buttons ---------- */
+.sk-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sk-space-2);
+  min-block-size: 48px; padding: 0 var(--sk-space-5);
+  font: var(--sk-font-weight-bold) var(--sk-font-size-md)/1 var(--sk-font-family-text);
+  border: var(--sk-border-width-strong) solid transparent; border-radius: var(--sk-radius-md);
+  cursor: pointer; text-decoration: none;
+  transition: transform var(--sk-motion-duration-instant) var(--sk-motion-easing-standard),
+              background-color var(--sk-motion-duration-fast) var(--sk-motion-easing-standard),
+              box-shadow var(--sk-motion-duration-fast) var(--sk-motion-easing-standard);
+}
+.sk-btn:active { transform: translateY(1px) scale(0.98); }
+.sk-btn--primary   { background: var(--sk-color-brand-ink); color: var(--sk-color-brand-yellow); }
+.sk-btn--primary:hover { background: var(--sk-color-green-900); }
+.sk-btn--secondary { background: var(--sk-color-brand-green); color: var(--sk-color-brand-ink); }
+.sk-btn--secondary:hover { background: var(--sk-color-green-400); }
+.sk-btn--outline   { background: transparent; color: var(--sk-color-brand-ink); border-color: var(--sk-color-brand-ink); }
+.sk-btn--outline:hover { background: var(--sk-color-brand-ink); color: var(--sk-color-brand-yellow); }
+.sk-btn--ghost     { background: transparent; color: var(--sk-color-brand-deep); }
+.sk-btn--ghost:hover { background: var(--sk-color-green-50); }
+.sk-btn--lg { min-block-size: 56px; padding: 0 var(--sk-space-6); font-size: var(--sk-font-size-lg); }
+.sk-btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+/* Arrow points "forward" — left in RTL, right in LTR. */
+.sk-btn .sk-arrow { display: inline-block; transition: transform var(--sk-motion-duration-fast) var(--sk-motion-easing-ascend); }
+.sk-btn:hover .sk-arrow { transform: translateX(-4px); }
+[dir="ltr"] .sk-btn:hover .sk-arrow { transform: translateX(4px); }
+
+/* ---------- Cards ---------- */
+.sk-card { background: var(--sk-color-neutral-0); border: 1px solid var(--sk-color-semantic-border); border-radius: var(--sk-radius-lg); padding: var(--sk-space-6); box-shadow: var(--sk-shadow-sm); }
+.sk-card--brand { background: var(--sk-color-brand-yellow); border-color: transparent; border-radius: 0; }
+.sk-card--green { background: var(--sk-color-brand-green); border-color: transparent; border-radius: 0; }
+.sk-card--poster { border: var(--sk-border-width-strong) solid var(--sk-color-brand-ink); border-radius: 0; box-shadow: var(--sk-shadow-block); }
+
+/* ---------- Badge / tag ---------- */
+.sk-badge { display: inline-flex; align-items: center; gap: 0.4em; padding: 0.2em 0.75em; border-radius: var(--sk-radius-pill); font-size: var(--sk-font-size-sm); font-weight: var(--sk-font-weight-semibold); background: var(--sk-color-green-50); color: var(--sk-color-brand-deep); }
+.sk-badge--yellow { background: var(--sk-color-brand-yellow); color: var(--sk-color-brand-ink); }
+.sk-badge--ink { background: var(--sk-color-brand-ink); color: var(--sk-color-brand-yellow); }
+
+/* ---------- Form fields ---------- */
+.sk-field { display: grid; gap: var(--sk-space-2); }
+.sk-label { font-weight: var(--sk-font-weight-semibold); font-size: var(--sk-font-size-sm); }
+.sk-input, .sk-select {
+  min-block-size: 48px; padding: 0 var(--sk-space-4);
+  font: inherit; color: inherit; background: var(--sk-color-neutral-0);
+  border: var(--sk-border-width-strong) solid var(--sk-color-neutral-300); border-radius: var(--sk-radius-md);
+  transition: border-color var(--sk-motion-duration-fast) var(--sk-motion-easing-standard);
+}
+.sk-input:hover { border-color: var(--sk-color-neutral-500); }
+.sk-input:focus { border-color: var(--sk-color-brand-ink); outline: none; box-shadow: 0 0 0 4px var(--sk-color-brand-yellow); }
+.sk-help { font-size: var(--sk-font-size-sm); color: var(--sk-color-semantic-text-muted); }
+.sk-input[aria-invalid="true"] { border-color: var(--sk-color-status-danger); }
+.sk-error { font-size: var(--sk-font-size-sm); color: var(--sk-color-status-danger); }
+
+/* ---------- Stat ---------- */
+.sk-stat { display: grid; gap: var(--sk-space-1); }
+.sk-stat__value { font-family: var(--sk-font-family-display); font-weight: var(--sk-font-weight-extrabold); font-size: var(--sk-font-size-6xl); line-height: 1; font-variant-numeric: tabular-nums; }
+.sk-stat__label { font-size: var(--sk-font-size-sm); color: var(--sk-color-semantic-text-secondary); }
+
+/* ---------- Signature: two-benefit journey ---------- */
+.sk-journey { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: var(--sk-space-4); }
+.sk-journey__step { padding: var(--sk-space-5); background: var(--sk-color-brand-yellow); color: var(--sk-color-brand-ink); }
+.sk-journey__step--second { background: var(--sk-color-brand-green); }
+.sk-journey__index { font-family: var(--sk-font-family-display); font-weight: var(--sk-font-weight-extrabold); font-size: var(--sk-font-size-4xl); line-height: 1; }
+.sk-journey__gap { display: grid; place-items: center; align-content: center; gap: var(--sk-space-2); min-inline-size: 96px; text-align: center; font-weight: var(--sk-font-weight-bold); }
+.sk-journey__gap::before { content: ""; inline-size: 100%; block-size: var(--sk-border-width-rule); background: var(--sk-color-brand-ink); transform: rotate(var(--sk-angle-ascent)); }
+@media (max-width: 767px) {
+  .sk-journey { grid-template-columns: 1fr; }
+  .sk-journey__gap { min-block-size: 64px; }
+  .sk-journey__gap::before { inline-size: 64px; }
+}
+
+/* ---------- Layout helpers ---------- */
+.sk-container { max-inline-size: var(--sk-layout-container); margin-inline: auto; padding-inline: var(--sk-layout-page-margin); }
+@media (min-width: 768px) { .sk-container { padding-inline: var(--sk-space-6); } }
+@media (min-width: 1280px) { .sk-container { padding-inline: var(--sk-space-8); } }
+.sk-grid { display: grid; gap: var(--sk-layout-gutter); grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.sk-stack > * + * { margin-block-start: var(--sk-space-4); }

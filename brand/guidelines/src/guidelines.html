@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>سكنة وخزينة — دليل الهوية البصرية</title>
+<!-- Source of brand/guidelines/sukna-w-khazinah_brand-guidelines.pdf
+     Build: NODE_PATH=$(npm root -g) node scripts/build_guidelines.cjs
+     {{MARK_SYMBOL}} is replaced with the master logo geometry at build time. -->
+<link rel="stylesheet" href="../../design-system/fonts.css">
+<link rel="stylesheet" href="../../design-system/tokens.css">
+<link rel="stylesheet" href="../../design-system/components.css">
+<link rel="stylesheet" href="../../motion/motion.css">
+<style>
+  @page { size: 297mm 210mm; margin: 0; }
+  html, body { margin: 0; background: #888; }
+  body { font-size: 11pt; line-height: 1.7; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { position: relative; width: 297mm; height: 210mm; padding: 16mm 18mm 14mm; box-sizing: border-box; overflow: hidden; background: #fff; page-break-after: always; break-after: page; margin: 0 auto; }
+  .page + .page { margin-top: 0; }
+  .y { background: var(--sk-color-brand-yellow); }
+  .g { background: var(--sk-color-brand-green); }
+  .k { background: var(--sk-color-brand-ink); color: var(--sk-color-brand-yellow); }
+  .p { background: var(--sk-color-brand-paper); }
+  .mark { display: block; color: var(--sk-color-brand-green); }
+  .mark svg, svg.mark { display: block; width: 100%; height: auto; }
+
+  /* running header / footer */
+  .hdr { position: absolute; top: 9mm; inset-inline: 18mm; display: flex; justify-content: space-between; font-size: 8pt; color: var(--sk-color-neutral-500); letter-spacing: .02em; }
+  .ftr { position: absolute; bottom: 7mm; inset-inline: 18mm; display: flex; justify-content: space-between; align-items: center; font-size: 8pt; color: var(--sk-color-neutral-500); }
+  .k .hdr, .k .ftr { color: var(--sk-color-green-300); }
+  .g .hdr, .g .ftr, .y .hdr, .y .ftr { color: var(--sk-color-brand-ink); opacity: .7; }
+  .ftr .pg { font-family: var(--sk-font-family-display); font-weight: 700; font-size: 10pt; }
+
+  .eyebrow { font-family: var(--sk-font-family-display); font-weight: 700; font-size: 10pt; color: var(--sk-color-brand-deep); display: flex; gap: 8px; align-items: center; margin-bottom: 2mm; }
+  .eyebrow .n { background: var(--sk-color-brand-ink); color: var(--sk-color-brand-yellow); padding: 0 8px; }
+  .k .eyebrow { color: var(--sk-color-brand-green); }
+  .k .eyebrow .n { background: var(--sk-color-brand-yellow); color: var(--sk-color-brand-ink); }
+  h1.t { font-family: var(--sk-font-family-display); font-size: 30pt; line-height: 1.15; margin: 0 0 2mm; font-weight: 800; }
+  h2.t { font-family: var(--sk-font-family-display); font-size: 15pt; margin: 0 0 2mm; font-weight: 700; }
+  .en { font-family: var(--sk-font-family-text); direction: ltr; unicode-bidi: isolate; color: var(--sk-color-neutral-500); font-weight: 500; }
+  h1 .en { display: block; font-size: 11pt; font-weight: 500; margin-top: 3mm; line-height: 1.3; text-align: right; }
+  .divider .en { text-align: right; }
+  p { margin: 0 0 3mm; }
+  .muted { color: var(--sk-color-neutral-600); }
+  .small { font-size: 8.5pt; line-height: 1.55; }
+  .rule { display: block; width: 26mm; height: 1.2mm; background: var(--sk-color-brand-green); transform: rotate(-7.5deg); transform-origin: right center; margin: 3mm 0 6mm; }
+  .k .rule { background: var(--sk-color-brand-yellow); }
+  .cols { display: grid; gap: 8mm; }
+  .c2 { grid-template-columns: 1fr 1fr; } .c3 { grid-template-columns: repeat(3, 1fr); } .c4 { grid-template-columns: repeat(4, 1fr); }
+  .c-5-7 { grid-template-columns: 5fr 7fr; } .c-7-5 { grid-template-columns: 7fr 5fr; }
+  .box { padding: 6mm; }
+  .tag { display: inline-block; font-size: 8pt; font-weight: 600; padding: 1px 8px; border-radius: 99px; background: var(--sk-color-green-50); color: var(--sk-color-brand-deep); }
+  .mono { font-family: "IBM Plex Sans Arabic", monospace; direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums; }
+  table.spec { border-collapse: collapse; width: 100%; font-size: 9pt; }
+  table.spec th, table.spec td { text-align: start; padding: 2mm 2.5mm; border-bottom: 1px solid var(--sk-color-neutral-200); vertical-align: top; }
+  table.spec th { font-weight: 700; color: var(--sk-color-brand-deep); border-bottom: 2px solid var(--sk-color-brand-ink); }
+  .note { border-inline-start: 4px solid var(--sk-color-brand-green); padding: 2mm 4mm; background: var(--sk-color-green-50); font-size: 9pt; }
+  .warn { border-inline-start-color: var(--sk-color-status-danger); background: #FCEDEA; }
+
+  /* cover */
+  .cover { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 14mm; padding: 18mm 22mm; }
+  .cover .title { font-family: var(--sk-font-family-display); font-weight: 800; font-size: 40pt; line-height: 1.1; margin: 0; }
+  .cover .sub { font-size: 13pt; margin-top: 4mm; }
+  .cover .meta { position: absolute; bottom: 14mm; inset-inline: 22mm; display: flex; justify-content: space-between; font-size: 9pt; }
+
+  /* toc */
+  .toc { columns: 2; column-gap: 14mm; font-size: 11pt; }
+  .toc div { display: flex; gap: 4mm; align-items: baseline; padding: 1.5mm 0; border-bottom: 1px solid var(--sk-color-neutral-200); break-inside: avoid; }
+  .toc b { font-family: var(--sk-font-family-display); color: var(--sk-color-brand-deep); min-width: 9mm; }
+  .toc span.pg { margin-inline-start: auto; font-family: var(--sk-font-family-display); }
+  .toc .chap { border-bottom: 2px solid var(--sk-color-brand-ink); font-family: var(--sk-font-family-display); font-weight: 700; padding-top: 3mm; }
+
+  /* chapter divider */
+  .divider { display: flex; flex-direction: column; justify-content: center; padding: 22mm 26mm; }
+  .divider .num { font-family: var(--sk-font-family-display); font-weight: 800; font-size: 120pt; line-height: .9; }
+  .divider h1 { font-family: var(--sk-font-family-display); font-weight: 800; font-size: 46pt; margin: 4mm 0 2mm; }
+
+  /* journey */
+  .journey { display: grid; grid-template-columns: 1fr 34mm 1fr; gap: 4mm; align-items: stretch; }
+  .journey .st { padding: 6mm; }
+  .journey .st .i { font-family: var(--sk-font-family-display); font-weight: 800; font-size: 34pt; line-height: 1; }
+  .journey .gap { display: grid; place-content: center; text-align: center; font-family: var(--sk-font-family-display); font-weight: 700; }
+  .journey .gap .yrs { font-size: 34pt; line-height: 1; }
+  .journey .gap::after { content: ""; display: block; height: 1.2mm; background: var(--sk-color-brand-ink); transform: rotate(-7.5deg); margin-top: 3mm; }
+
+  /* swatches */
+  .sw { padding: 6mm; min-height: 62mm; display: flex; flex-direction: column; justify-content: flex-end; }
+  .sw h3 { font-family: var(--sk-font-family-display); font-size: 18pt; margin: 0; }
+  .sw .codes { display: grid; grid-template-columns: auto 1fr; gap: 0 5mm; font-size: 9pt; margin-top: 3mm; }
+  .sw .codes b { font-weight: 600; }
+  .scale { display: grid; grid-template-columns: repeat(11, 1fr); height: 14mm; }
+  .scale div { display: flex; align-items: flex-end; padding: 1mm; font-size: 6.5pt; }
+
+  /* misuse */
+  .mis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5mm; }
+  .mis figure { margin: 0; }
+  .mis .tile { height: 38mm; display: grid; place-items: center; background: var(--sk-color-neutral-50); position: relative; overflow: hidden; }
+  .mis .tile img { width: 60%; }
+  .mis .tile::after { content: "✕"; position: absolute; top: 2mm; inset-inline-start: 2mm; width: 6mm; height: 6mm; border-radius: 50%; background: var(--sk-color-status-danger); color: #fff; font-size: 9pt; display: grid; place-items: center; line-height: 1; }
+  .mis figcaption { font-size: 8.5pt; margin-top: 1.5mm; }
+
+  /* mockups */
+  .mock { box-shadow: 0 6px 22px rgba(11,42,30,.18); position: relative; overflow: hidden; }
+  .ph { background: repeating-linear-gradient(-7.5deg, var(--sk-color-neutral-100) 0 6px, var(--sk-color-neutral-50) 6px 12px); display: grid; place-items: center; color: var(--sk-color-neutral-500); font-size: 8pt; text-align: center; padding: 3mm; }
+  .curve { width: 100%; height: 22mm; }
+  img.full { width: 100%; display: block; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="{{MARK_VIEWBOX}}">{{MARK_SYMBOL}}</symbol>
+</svg>
+
+<!-- 1 COVER -->
+<section class="page y cover">
+  <div>
+    <div class="eyebrow"><span class="n">v1.0</span> مبادرة سكنية · سلطنة عُمان</div>
+    <h1 class="title">دليل الهوية<br>البصرية</h1>
+    <div class="sub">الهوية · نظام التصميم · نظام الحركة<br><span class="en">Brand Identity, Design System &amp; Motion System</span></div>
+    <span class="rule" style="background:var(--sk-color-brand-ink)"></span>
+  </div>
+  <svg class="mark" viewBox="{{MARK_VIEWBOX}}"><use href="#mark"/></svg>
+  <div class="meta"><span>الإصدار 1.0 · أكتوبر 2026</span><span class="en" style="color:inherit">Sukna w Khazinah — Brand Guidelines</span></div>
+</section>
+
+<!-- 2 CONTENTS -->
+<section class="page">
+  <div class="hdr"><span>سكنة وخزينة · دليل الهوية</span><span class="en">Contents</span></div>
+  <div class="eyebrow">المحتويات</div>
+  <h1 class="t">ما في هذا الدليل<span class="en">What's inside</span></h1>
+  <span class="rule"></span>
+  <div class="toc">
+    <div class="chap"><b>01</b>المبادرة والفكرة<span class="pg">3</span></div>
+    <div><b>1.1</b>عن المبادرة<span class="pg">4</span></div>
+    <div><b>1.2</b>معنى الاسم والرسالة الجوهرية<span class="pg">5</span></div>
+    <div class="chap"><b>02</b>الشعار<span class="pg">6</span></div>
+    <div><b>2.1</b>تحليل الشعار<span class="pg">7</span></div>
+    <div><b>2.2</b>نسخ الشعار<span class="pg">8</span></div>
+    <div><b>2.3</b>المساحة الآمنة والحد الأدنى للحجم<span class="pg">9</span></div>
+    <div><b>2.4</b>الاستخدام الخاطئ<span class="pg">10</span></div>
+    <div class="chap"><b>03</b>الأساسيات البصرية<span class="pg">11</span></div>
+    <div><b>3.1</b>الألوان الرئيسية<span class="pg">12</span></div>
+    <div><b>3.2</b>الألوان الداعمة والنسب<span class="pg">13</span></div>
+    <div><b>3.3</b>التباين وإمكانية الوصول<span class="pg">14</span></div>
+    <div><b>3.4</b>الخطوط<span class="pg">15</span></div>
+    <div><b>3.5</b>العناصر الجرافيكية<span class="pg">16</span></div>
+    <div><b>3.6</b>الصور ونبرة الصوت<span class="pg">17</span></div>
+    <div class="chap"><b>04</b>نظام التصميم<span class="pg">18</span></div>
+    <div><b>4.1</b>الرموز (Tokens)<span class="pg">19</span></div>
+    <div><b>4.2</b>المكوّنات<span class="pg">20</span></div>
+    <div><b>4.3</b>الشبكة والمقاسات<span class="pg">21</span></div>
+    <div class="chap"><b>05</b>نظام الحركة<span class="pg">22</span></div>
+    <div><b>5.1</b>مبادئ ورموز الحركة<span class="pg">23</span></div>
+    <div><b>5.2</b>ظهور الشعار المتحرك<span class="pg">24</span></div>
+    <div class="chap"><b>06</b>التطبيقات<span class="pg">25</span></div>
+    <div><b>6.1</b>أمثلة التطبيق<span class="pg">26</span></div>
+    <div><b>6.2</b>الشراكة مع الجهات والملفات<span class="pg">27</span></div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">2</span></div>
+</section>
+
+<!-- 3 DIVIDER 01 -->
+<section class="page g divider">
+  <div class="num">01</div>
+  <h1>المبادرة والفكرة</h1>
+  <div class="en" style="color:var(--sk-color-brand-ink);font-size:13pt">The initiative &amp; the idea</div>
+</section>
+
+<!-- 4 ABOUT -->
+<section class="page">
+  <div class="hdr"><span>01 · المبادرة والفكرة</span><span class="en">About the initiative</span></div>
+  <div class="eyebrow"><span class="n">1.1</span> عن المبادرة</div>
+  <h1 class="t">من استفادة واحدة مدى الحياة… إلى استفادتين</h1>
+  <span class="rule"></span>
+  <div class="cols c-5-7" style="gap:12mm">
+    <div>
+      <p>مبادرة <b>سكنة وخزينة</b> تغيّر مفهوم الاستفادة السكنية الحكومية: بدل منحة واحدة تنتهي بها استفادة المواطن، تصبح الاستفادة <b>مرتين</b>.</p>
+      <p><b>في النظام السابق</b> كان المواطن يستفيد من المنحة الحكومية مرة واحدة، غالبًا عبر الحصول على أرض، وتنتهي بذلك استفادته السكنية الحكومية.</p>
+      <p><b>في سكنة وخزينة</b> تكون الاستفادة الأولى بشراء شقة في <b>مدينة السلطان هيثم</b>. وبعد مرور <b>5 سنوات من استلام الشقة</b> يُفتح للمستفيد الاستحقاق مرة أخرى.</p>
+      <div class="note">الميزة الأساسية: المستفيد <b>لا يفقد الشقة الأولى</b>؛ يحتفظ بها أصلًا عقاريًا أو استثماريًا، أو يبيعها لاحقًا.</div>
+    </div>
+    <div>
+      <div class="journey" style="margin-top:2mm">
+        <div class="st y"><div class="i">١</div><h2 class="t" style="margin-top:3mm">الاستفادة الأولى</h2><p class="small">شراء شقة في مدينة السلطان هيثم.</p><span class="tag" style="background:var(--sk-color-brand-ink);color:var(--sk-color-brand-yellow)">سكنة</span></div>
+        <div class="gap"><span class="yrs">5</span>سنوات من<br>استلام الشقة</div>
+        <div class="st g"><div class="i">٢</div><h2 class="t" style="margin-top:3mm">الاستفادة الثانية</h2><p class="small">الاختيار بين أرض، أو دعم حكومي لوحدة سكنية (شقة أو فيلا).</p><span class="tag" style="background:var(--sk-color-brand-ink);color:var(--sk-color-brand-yellow)">استحقاق جديد</span></div>
+      </div>
+      <div class="box k" style="margin-top:5mm;display:flex;gap:6mm;align-items:center">
+        <span class="sk-dots-2" style="font-size:16pt;color:var(--sk-color-brand-green)"><span class="sk-dot"></span><span class="sk-dot" style="color:var(--sk-color-brand-yellow)"></span></span>
+        <div><b style="font-family:var(--sk-font-family-display);font-size:13pt">والشقة الأولى تبقى لك — خزينة.</b><br><span class="small" style="color:var(--sk-color-green-200)">احتفظ بها أصلًا، أو أجّرها، أو بِعها لاحقًا.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">4</span></div>
+</section>
+
+<!-- 5 NAME -->
+<section class="page">
+  <div class="hdr"><span>01 · المبادرة والفكرة</span><span class="en">The name &amp; core message</span></div>
+  <div class="eyebrow"><span class="n">1.2</span> معنى الاسم</div>
+  <h1 class="t">اسمٌ يحمل الاستفادتين<span class="en">A name that carries both benefits</span></h1>
+  <span class="rule"></span>
+  <div class="cols c2" style="gap:6mm">
+    <div class="box y" style="min-height:62mm">
+      <div style="font-family:var(--sk-font-family-display);font-weight:800;font-size:44pt;line-height:1">سكنة</div>
+      <p style="margin-top:4mm"><b>المسكن.</b> الاستفادة الأولى توفّر للمواطن بيتًا يسكنه: شقة في مدينة السلطان هيثم.</p>
+      <p class="small">في الهوية: <b>أخضر سكنة</b> — النموّ، الحياة، الاستقرار.</p>
+    </div>
+    <div class="box g" style="min-height:62mm">
+      <div style="font-family:var(--sk-font-family-display);font-weight:800;font-size:44pt;line-height:1">خزينة</div>
+      <p style="margin-top:4mm"><b>الأصل الذي يبقى.</b> الشقة تظل ملكًا للمستفيد يحتفظ بها أو يبيعها، بينما يعود له حق الاستفادة الحكومية بعد خمس سنوات.</p>
+      <p class="small">في الهوية: <b>أصفر خزينة</b> — القيمة، الكنز، الادّخار.</p>
+    </div>
+  </div>
+  <div class="box k" style="margin-top:6mm;text-align:center;padding:7mm">
+    <div class="small" style="color:var(--sk-color-green-300)">الرسالة الجوهرية · Core message</div>
+    <div style="font-family:var(--sk-font-family-display);font-weight:800;font-size:24pt;line-height:1.3">استفد اليوم بشقة، واستفد مرة أخرى بعد 5 سنوات.</div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">5</span></div>
+</section>
+
+<!-- 6 DIVIDER 02 -->
+<section class="page y divider">
+  <div class="num">02</div>
+  <h1>الشعار</h1>
+  <div class="en" style="color:var(--sk-color-brand-ink);font-size:13pt">The logo</div>
+  <svg class="mark" viewBox="{{MARK_VIEWBOX}}" style="position:absolute;width:110mm;left:24mm;bottom:28mm"><use href="#mark"/></svg>
+</section>
+
+<!-- 7 ANALYSIS -->
+<section class="page">
+  <div class="hdr"><span>02 · الشعار</span><span class="en">Logo analysis</span></div>
+  <div class="eyebrow"><span class="n">2.1</span> تحليل الشعار</div>
+  <h1 class="t">كيف بُني الشعار<span class="en">How the mark is built</span></h1>
+  <span class="rule"></span>
+  <div class="cols c-7-5" style="gap:10mm;align-items:start">
+    <svg viewBox="-60 -40 820 620" style="width:100%;color:var(--sk-color-brand-green)">
+      <rect x="-60" y="-40" width="820" height="620" fill="var(--sk-color-brand-paper)"/>
+      <use href="#mark" x="0" y="0" width="{{MARK_W}}" height="{{MARK_H}}"/>
+      <!-- 1 ascent angle -->
+      <line x1="-40" y1="300" x2="700" y2="202.6" stroke="#0B2A1E" stroke-width="2" stroke-dasharray="8 6"/>
+      <line x1="-40" y1="300" x2="160" y2="300" stroke="#0B2A1E" stroke-width="1.5"/>
+      <path d="M 100 300 A 140 140 0 0 0 98.8 282" fill="none" stroke="#0B2A1E" stroke-width="2"/>
+      <text x="-55" y="336" direction="ltr" font-size="22" font-weight="700" fill="#0B2A1E" font-family="IBM Plex Sans Arabic">7.5°</text>
+      <!-- 2 tiers -->
+      <path d="M 672 0 h 14 v 244 h -14" fill="none" stroke="#0B2A1E" stroke-width="2"/>
+      <path d="M 672 285 h 14 v 246 h -14" fill="none" stroke="#0B2A1E" stroke-width="2"/>
+      <!-- 3 dot unit -->
+      <circle cx="221" cy="74.4" r="30" fill="none" stroke="#0B2A1E" stroke-width="2.5"/>
+      <!-- 4 rules -->
+      <rect x="40" y="208" width="575" height="104" fill="none" stroke="#0B2A1E" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <!-- 5 chamfer -->
+      <circle cx="610" cy="24" r="34" fill="none" stroke="#0B2A1E" stroke-width="2.5"/>
+      <g font-family="Changa" font-weight="800" font-size="22" text-anchor="middle">
+        <circle cx="-30" cy="270" r="17" fill="#0B2A1E"/><text x="-30" y="278" fill="#F0FF0B">1</text>
+        <circle cx="720" cy="122" r="17" fill="#0B2A1E"/><text x="720" y="130" fill="#F0FF0B">2</text>
+        <circle cx="720" cy="408" r="17" fill="#0B2A1E"/><text x="720" y="416" fill="#F0FF0B">2</text>
+        <circle cx="221" cy="18" r="17" fill="#0B2A1E"/><text x="221" y="26" fill="#F0FF0B">3</text>
+        <circle cx="40" cy="208" r="17" fill="#0B2A1E"/><text x="40" y="216" fill="#F0FF0B">4</text>
+        <circle cx="658" cy="-6" r="17" fill="#0B2A1E"/><text x="658" y="2" fill="#F0FF0B">5</text>
+      </g>
+    </svg>
+    <div class="small" style="font-size:9pt">
+      <p><b>حرفٌ مرسوم لا خطٌّ جاهز.</b> كتابة عربية مخصّصة بروح الكوفي الهندسي: مقاطع مستقيمة سميكة، ونهايات مشطوفة، وتكوين يشبه الكتل المعمارية.</p>
+      <p><b>① زاوية الصعود ≈ 7.5°.</b> خط القاعدة يرتفع نحو اليمين: ارتقاء وتنامٍ في قيمة الأصل. تصبح هذه الزاوية ثابتًا في النظام كله (الخطوط، الأشرطة، مسارات الحركة).</p>
+      <p><b>② طبقتان.</b> «سكنة» فوق و«خزينة» تحتها، بالوزن نفسه: استفادتان متكافئتان على مسار واحد.</p>
+      <p><b>③ النقطة (D).</b> العنصر الدائري الوحيد. قُطرها هو وحدة القياس للمساحة الآمنة (D ≈ 5.6% من عرض الشعار)، ومنها جاء موتيف النقاط.</p>
+      <p><b>④ الخطوط المسطّرة.</b> تحيط بـ«و» كأنها خط زمني يفصل الاستفادتين (السنوات الخمس)، وتذكّر بطوابق المبنى وسطور دفتر الخزينة.</p>
+      <p><b>⑤ الشطف.</b> الزوايا المقطوعة تتحوّل إلى «الزاوية المشطوفة» في البطاقات والعناصر.</p>
+      <p class="muted">النسبة: العرض ÷ الارتفاع = 1.208 · 18 مسارًا متّجهيًا بلون واحد.</p>
+    </div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">7</span></div>
+</section>
+
+<!-- 8 VERSIONS -->
+<section class="page">
+  <div class="hdr"><span>02 · الشعار</span><span class="en">Logo versions</span></div>
+  <div class="eyebrow"><span class="n">2.2</span> نسخ الشعار</div>
+  <h1 class="t">أربع نسخ لكل خلفية<span class="en">Four versions for every background</span></h1>
+  <span class="rule"></span>
+  <div class="cols c4" style="gap:5mm">
+    <figure style="margin:0"><div class="y" style="height:58mm;display:grid;place-items:center"><svg class="mark" viewBox="{{MARK_VIEWBOX}}" style="width:70%"><use href="#mark"/></svg></div>
+      <figcaption class="small" style="margin-top:2mm"><b>الأساسية</b> — أخضر على أصفر. الخيار الأول دائمًا.<br><span class="mono">primary</span></figcaption></figure>
+    <figure style="margin:0"><div class="g" style="height:58mm;display:grid;place-items:center"><svg class="mark" viewBox="{{MARK_VIEWBOX}}" style="width:70%;color:var(--sk-color-brand-yellow)"><use href="#mark"/></svg></div>
+      <figcaption class="small" style="margin-top:2mm"><b>المعكوسة</b> — أصفر على أخضر.<br><span class="mono">reverse</span></figcaption></figure>
+    <figure style="margin:0"><div style="height:58mm;display:grid;place-items:center;background:#fff;border:1px solid var(--sk-color-neutral-200)"><svg class="mark" viewBox="{{MARK_VIEWBOX}}" style="width:70%;color:#000"><use href="#mark"/></svg></div>
+      <figcaption class="small" style="margin-top:2mm"><b>أحادية سوداء</b> — للطباعة بلون واحد والفاكس والختم.<br><span class="mono">mark-black</span></figcaption></figure>
+    <figure style="margin:0"><div class="k" style="height:58mm;display:grid;place-items:center"><svg class="mark" viewBox="{{MARK_VIEWBOX}}" style="width:70%;color:#fff"><use href="#mark"/></svg></div>
+      <figcaption class="small" style="margin-top:2mm"><b>أحادية بيضاء</b> — فوق الصور الداكنة والحبر.<br><span class="mono">mark-white</span></figcaption></figure>
+  </div>
+  <div class="cols c2" style="margin-top:6mm;gap:8mm">
+    <div class="note">على الخلفيات البيضاء أو الفاتحة استخدم <b>الأخضر</b> (<span class="mono">mark-green</span>). فوق الأخضر أو الحبر استخدم <b>الأصفر</b>. لا يوضع الأصفر على الأبيض أبدًا.</div>
+    <div class="note">النسخ المربّعة <span class="mono">avatar-yellow / avatar-green</span> لصور الحسابات. كل الملفات في <span class="mono">brand/logo/</span> بصيغ SVG · PDF · AI · PNG.</div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">8</span></div>
+</section>
+
+<!-- 9 CLEAR SPACE -->
+<section class="page">
+  <div class="hdr"><span>02 · الشعار</span><span class="en">Clear space &amp; minimum size</span></div>
+  <div class="eyebrow"><span class="n">2.3</span> المساحة الآمنة والحد الأدنى</div>
+  <h1 class="t">مساحة تتنفّس<span class="en">Room to breathe</span></h1>
+  <span class="rule"></span>
+  <div class="cols c-7-5" style="gap:10mm;align-items:center">
+    <svg viewBox="-110 -110 {{CS_W}} {{CS_H}}" style="width:100%;color:var(--sk-color-brand-green)">
+      <rect x="-110" y="-110" width="{{CS_W}}" height="{{CS_H}}" fill="var(--sk-color-brand-yellow)"/>
+      <rect x="-72" y="-72" width="{{CS_INNER_W}}" height="{{CS_INNER_H}}" fill="none" stroke="#0B2A1E" stroke-width="2" stroke-dasharray="10 6"/>
+      <rect x="0" y="0" width="{{MARK_W}}" height="{{MARK_H}}" fill="none" stroke="#0B2A1E" stroke-width="1" opacity=".35"/>
+      <use href="#mark" width="{{MARK_W}}" height="{{MARK_H}}"/>
+      <g fill="#0B2A1E" opacity=".9">
+        <circle cx="-54" cy="-54" r="18"/><circle cx="-18" cy="-54" r="18" opacity=".45"/>
+        <circle cx="{{MARK_W_P54}}" cy="{{MARK_H_P54}}" r="18"/><circle cx="{{MARK_W_P18}}" cy="{{MARK_H_P54}}" r="18" opacity=".45"/>
+      </g>
+      <text x="-72" y="-82" font-size="22" font-weight="700" fill="#0B2A1E" font-family="IBM Plex Sans Arabic" text-anchor="start" direction="ltr">2D</text>
+    </svg>
+    <div>
+      <h2 class="t">المساحة الآمنة = 2D</h2>
+      <p class="small">D هو قطر نقطة الشعار. اترك حول الشعار من كل الجهات مسافة لا تقل عن قطرَي نقطتين (≈ 11% من عرض الشعار). لا يدخل هذه المساحة نص ولا شعار آخر ولا حافة صفحة.</p>
+      <h2 class="t" style="margin-top:6mm">الحد الأدنى للحجم</h2>
+      <table class="spec">
+        <tr><th>الوسيط</th><th>أقل عرض</th></tr>
+        <tr><td>الشاشات</td><td class="mono">120 px</td></tr>
+        <tr><td>الطباعة</td><td class="mono">30 mm</td></tr>
+        <tr><td>الأختام والتطريز</td><td class="mono">40 mm</td></tr>
+      </table>
+      <p class="small muted" style="margin-top:3mm">تحت هذه المقاسات تتلاصق النقاط والخطوط الرفيعة وتضيع.</p>
+    </div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">9</span></div>
+</section>
+
+<!-- 10 MISUSE -->
+<section class="page">
+  <div class="hdr"><span>02 · الشعار</span><span class="en">Misuse</span></div>
+  <div class="eyebrow"><span class="n">2.4</span> الاستخدام الخاطئ</div>
+  <h1 class="t">ما لا نفعله بالشعار<span class="en">Don'ts</span></h1>
+  <span class="rule" style="background:var(--sk-color-status-danger)"></span>
+  <div class="mis">
+    <figure><div class="tile"><img src="../../logo/svg/sukna-w-khazinah_mark-green.svg" style="transform:scaleX(1.45)"></div><figcaption>لا تمطّ الشعار أو تضغطه.</figcaption></figure>
+    <figure><div class="tile"><img src="../../logo/svg/sukna-w-khazinah_mark-green.svg" style="transform:rotate(-14deg)"></div><figcaption>لا تُدِر الشعار؛ الميل مبنيٌّ فيه.</figcaption></figure>
+    <figure><div class="tile"><img src="../../logo/svg/sukna-w-khazinah_mark-green.svg" style="filter:hue-rotate(150deg) saturate(1.6)"></div><figcaption>لا تغيّر ألوانه خارج النسخ المعتمدة.</figcaption></figure>
+    <figure><div class="tile"><img src="../../logo/svg/sukna-w-khazinah_mark-green.svg" style="filter:drop-shadow(5px 6px 3px rgba(0,0,0,.55))"></div><figcaption>لا تضف ظلالًا أو توهّجًا أو تأثيرات.</figcaption></figure>
+    <figure><div class="tile" style="background:#fff"><img src="../../logo/svg/sukna-w-khazinah_mark-yellow.svg"></div><figcaption>لا تضع الأصفر على الأبيض (تباين 1.1:1).</figcaption></figure>
+    <figure><div class="tile" style="background:linear-gradient(135deg,#7a4f2a,#1c6b9b 50%,#e3b34b)"><img src="../../logo/svg/sukna-w-khazinah_mark-green.svg"></div><figcaption>لا تضعه فوق خلفيات أو صور مزدحمة.</figcaption></figure>
+    <figure><div class="tile"><div style="position:relative;width:60%;aspect-ratio:1.208"><img src="../../logo/svg/sukna-w-khazinah_mark-green.svg" style="position:absolute;inset:0;width:100%;clip-path:inset(0 0 52% 0);transform:translateX(-18%)"><img src="../../logo/svg/sukna-w-khazinah_mark-green.svg" style="position:absolute;inset:0;width:100%;clip-path:inset(54% 0 0 0);transform:translate(16%,8%)"></div></div>
+      <figcaption>لا تفصل الكلمتين أو تعِد ترتيبهما.</figcaption></figure>
+    <figure><div class="tile"><div style="font-family:Changa;font-weight:800;font-size:22pt;color:var(--sk-color-brand-green)">سكنة وخزينة</div></div><figcaption>لا تعِد كتابة الاسم بخط جاهز بديلًا عن الشعار.</figcaption></figure>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">10</span></div>
+</section>
+
+<!-- 11 DIVIDER 03 -->
+<section class="page k divider">
+  <div class="num" style="color:var(--sk-color-brand-green)">03</div>
+  <h1>الأساسيات البصرية</h1>
+  <div class="en" style="color:var(--sk-color-green-200);font-size:13pt">Visual foundations</div>
+</section>
+
+<!-- 12 PRIMARY COLOURS -->
+<section class="page">
+  <div class="hdr"><span>03 · الأساسيات</span><span class="en">Primary colours</span></div>
+  <div class="eyebrow"><span class="n">3.1</span> الألوان الرئيسية</div>
+  <h1 class="t">لونان معتمدان<span class="en">Two approved colours</span></h1>
+  <span class="rule"></span>
+  <div class="cols c2" style="gap:6mm">
+    <div class="sw y" style="min-height:96mm">
+      <h3>أصفر خزينة</h3><div class="en" style="color:var(--sk-color-brand-ink)">Khazinah Yellow</div>
+      <div class="codes"><b>HEX</b><span class="mono">#F0FF0B</span><b>RGB</b><span class="mono">240 · 255 · 11</span><b>CMYK*</b><span class="mono">8 · 0 · 92 · 0</span><b>PANTONE*</b><span class="mono">803 C (fluorescent)</span></div>
+      <p class="small" style="margin-top:3mm">لون الخلفية الأساسي ولون «الخزينة»: قيمة، ادّخار، ضوء.</p>
+    </div>
+    <div class="sw g" style="min-height:96mm">
+      <h3>أخضر سكنة</h3><div class="en" style="color:var(--sk-color-brand-ink)">Sukna Green</div>
+      <div class="codes"><b>HEX</b><span class="mono">#02C277</span><b>RGB</b><span class="mono">2 · 194 · 119</span><b>CMYK*</b><span class="mono">75 · 0 · 70 · 0</span><b>PANTONE*</b><span class="mono">7480 C</span></div>
+      <p class="small" style="margin-top:3mm">لون الشعار الأساسي ولون «السكنة»: نموّ، حياة، استقرار.</p>
+    </div>
+  </div>
+  <p class="small muted" style="margin-top:4mm">قيم HEX/RGB مأخوذة حرفيًا من ملف الشعار المعتمد. *قيم CMYK وPantone مقترحة لأقرب مطابقة، ويجب اعتمادها ببروفة طباعة فعلية؛ الأصفر لون فلوري يقع خارج نطاق CMYK القياسي.</p>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">12</span></div>
+</section>
+
+<!-- 13 SUPPORTING + RATIO -->
+<section class="page">
+  <div class="hdr"><span>03 · الأساسيات</span><span class="en">Supporting colours &amp; proportions</span></div>
+  <div class="eyebrow"><span class="n">3.2</span> الألوان الداعمة والنسب</div>
+  <h1 class="t">ألوان تُكمل ولا تنافس<span class="en">Support, never compete</span></h1>
+  <span class="rule"></span>
+  <div class="cols c4" style="gap:4mm">
+    <div class="sw" style="min-height:40mm;background:var(--sk-color-brand-ink);color:#fff"><h3 style="font-size:13pt">حبر</h3><span class="mono small">#0B2A1E</span><span class="small">لون النصوص الأساسي</span></div>
+    <div class="sw" style="min-height:40mm;background:var(--sk-color-brand-deep);color:#fff"><h3 style="font-size:13pt">أخضر عميق</h3><span class="mono small">#00563A</span><span class="small">روابط ونصوص على الأصفر</span></div>
+    <div class="sw" style="min-height:40mm;background:var(--sk-color-brand-paper);border:1px solid var(--sk-color-neutral-200)"><h3 style="font-size:13pt">ورق</h3><span class="mono small">#F6F8F5</span><span class="small">خلفية القراءة الطويلة</span></div>
+    <div class="sw" style="min-height:40mm;background:#fff;border:1px solid var(--sk-color-neutral-200)"><h3 style="font-size:13pt">أبيض</h3><span class="mono small">#FFFFFF</span><span class="small">مساحات الواجهات</span></div>
+  </div>
+  <h2 class="t" style="margin-top:6mm">التدرّجات</h2>
+  <div class="scale">{{SCALE_GREEN}}</div>
+  <div class="scale" style="margin-top:2mm">{{SCALE_YELLOW}}</div>
+  <div class="scale" style="margin-top:2mm">{{SCALE_NEUTRAL}}</div>
+  <h2 class="t" style="margin-top:6mm">نسب الاستخدام في الحملات</h2>
+  <div style="display:flex;height:12mm;font-size:9pt;font-weight:700">
+    <div class="y" style="flex:50;display:grid;place-items:center">أصفر 50%</div>
+    <div class="g" style="flex:25;display:grid;place-items:center">أخضر 25%</div>
+    <div class="k" style="flex:15;display:grid;place-items:center">حبر 15%</div>
+    <div style="flex:10;display:grid;place-items:center;background:#fff;border:1px solid var(--sk-color-neutral-200)">أبيض 10%</div>
+  </div>
+  <p class="small muted" style="margin-top:2mm">في الواجهات الرقمية تنقلب النسبة: الأبيض والورق للمساحة، والأصفر والأخضر للتمييز والدعوة إلى الإجراء.</p>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">13</span></div>
+</section>
+
+<!-- 14 CONTRAST -->
+<section class="page">
+  <div class="hdr"><span>03 · الأساسيات</span><span class="en">Contrast &amp; accessibility</span></div>
+  <div class="eyebrow"><span class="n">3.3</span> التباين وإمكانية الوصول</div>
+  <h1 class="t">مقروء للجميع<span class="en">Readable for everyone (WCAG 2.2)</span></h1>
+  <span class="rule"></span>
+  <div class="cols c-7-5" style="gap:10mm">
+    <div class="cols c3" style="gap:4mm">
+      <div class="box y"><div style="font-family:Changa;font-weight:800;font-size:22pt">نص</div><div class="small"><b>حبر على أصفر</b><br><span class="mono">13.9 : 1 · AAA</span></div></div>
+      <div class="box y" style="color:var(--sk-color-brand-deep)"><div style="font-family:Changa;font-weight:800;font-size:22pt">نص</div><div class="small"><b>أخضر عميق على أصفر</b><br><span class="mono">7.9 : 1 · AAA</span></div></div>
+      <div class="box g"><div style="font-family:Changa;font-weight:800;font-size:22pt">نص</div><div class="small"><b>حبر على أخضر</b><br><span class="mono">6.6 : 1 · AA</span></div></div>
+      <div class="box k"><div style="font-family:Changa;font-weight:800;font-size:22pt">نص</div><div class="small"><b>أصفر على حبر</b><br><span class="mono">13.9 : 1 · AAA</span></div></div>
+      <div class="box" style="border:1px solid var(--sk-color-neutral-200);color:var(--sk-color-green-700)"><div style="font-family:Changa;font-weight:800;font-size:22pt">نص</div><div class="small"><b>أخضر 700 على أبيض</b><br><span class="mono">5.4 : 1 · AA</span></div></div>
+      <div class="box y" style="color:var(--sk-color-brand-green);position:relative"><div style="font-family:Changa;font-weight:800;font-size:22pt">نص</div><div class="small" style="color:var(--sk-color-brand-ink)"><b>أخضر على أصفر</b><br><span class="mono">2.1 : 1 · للشعار فقط</span></div></div>
+    </div>
+    <div>
+      <h2 class="t">قواعد ثابتة</h2>
+      <ul class="sk-list small" style="font-size:9.5pt">
+        <li>الأخضر على الأصفر للشعار والأشكال الكبيرة فقط، وليس للنصوص المقروءة.</li>
+        <li>على الأخضر: كل النصوص بلون الحبر.</li>
+        <li>على الأصفر: الحبر أو الأخضر العميق.</li>
+        <li>لا نصوص بيضاء على الأخضر أو الأصفر.</li>
+        <li>أصغر حجم لنص الجسم 16px على الشاشة و9pt في الطباعة.</li>
+        <li>لا نعتمد على اللون وحده لنقل معنى؛ نضيف نصًا أو أيقونة.</li>
+      </ul>
+      <p class="small muted">الجدول الكامل في <span class="mono">brand/design-system/contrast-report.md</span></p>
+    </div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">14</span></div>
+</section>
+
+<!-- 15 TYPE -->
+<section class="page">
+  <div class="hdr"><span>03 · الأساسيات</span><span class="en">Typography</span></div>
+  <div class="eyebrow"><span class="n">3.4</span> الخطوط</div>
+  <h1 class="t">عائلتان، صوت واحد<span class="en">Two families, one voice</span></h1>
+  <span class="rule"></span>
+  <div class="cols c2" style="gap:10mm">
+    <div>
+      <div class="tag">العناوين · Display</div>
+      <div style="font-family:Changa;font-weight:800;font-size:58pt;line-height:1.05;margin-top:2mm">تشانجا</div>
+      <div style="font-family:Changa;font-weight:700;font-size:16pt">Changa — ExtraBold 800 · Bold 700</div>
+      <p class="small" style="margin-top:3mm">بنية كوفية هندسية بزوايا قائمة وفتحات مربّعة، قريبة من روح الشعار دون أن تقلّده. للعناوين والأرقام الكبيرة والشعارات النصية القصيرة.</p>
+      <div style="font-family:Changa;font-weight:800;font-size:22pt;line-height:1.3">استفد اليوم بشقة<br><span style="font-size:30pt">٥ سنوات · <bdi>5 Years</bdi></span></div>
+    </div>
+    <div>
+      <div class="tag">النصوص والواجهات · Text</div>
+      <div style="font-family:'IBM Plex Sans Arabic';font-weight:700;font-size:44pt;line-height:1.15;margin-top:2mm">بلكس عربي</div>
+      <div style="font-weight:600;font-size:13pt;margin-top:3mm">IBM Plex Sans Arabic — 400 · 500 · 600 · 700</div>
+      <p class="small" style="margin-top:3mm">خط واضح مصمَّم للقراءة على الشاشات والمستندات الرسمية، وأرقامه ثابتة العرض للجداول. للنصوص والنماذج والأسئلة الشائعة والشروط.</p>
+      <p style="font-size:10.5pt">بعد مرور خمس سنوات من استلام الشقة يُفتح للمستفيد الاستحقاق مرة أخرى، ويختار بين أرض أو دعم حكومي لوحدة سكنية.</p>
+    </div>
+  </div>
+  <table class="spec" style="margin-top:3mm">
+    <tr><th>المستوى</th><th>الخط</th><th>الحجم / السطر</th><th>الاستخدام</th></tr>
+    <tr><td style="font-family:Changa;font-weight:800;font-size:15pt">عنوان رئيسي</td><td>Changa 800</td><td class="mono">72–96 / 1.15</td><td>الإعلانات والصفحة الرئيسية</td></tr>
+    <tr><td style="font-family:Changa;font-weight:700;font-size:12pt">عنوان قسم</td><td>Changa 700</td><td class="mono">30–48 / 1.35</td><td>أقسام الصفحات والعروض</td></tr>
+    <tr><td style="font-weight:400">نص</td><td>Plex Arabic 400</td><td class="mono">16–18 / 1.75</td><td>الفقرات والشرح</td></tr>
+    <tr><td style="font-size:8.5pt">ملاحظة</td><td>Plex Arabic 500</td><td class="mono">12–14 / 1.6</td><td>الشروط والهوامش</td></tr>
+  </table>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">15</span></div>
+</section>
+
+<!-- 16 GRAPHIC ELEMENTS -->
+<section class="page">
+  <div class="hdr"><span>03 · الأساسيات</span><span class="en">Graphic elements</span></div>
+  <div class="eyebrow"><span class="n">3.5</span> العناصر الجرافيكية</div>
+  <h1 class="t">مأخوذة من الشعار نفسه<span class="en">Borrowed from the mark</span></h1>
+  <span class="rule"></span>
+  <div class="cols c4" style="gap:5mm">
+    <div><div class="y" style="height:44mm;position:relative;overflow:hidden">
+        <div style="position:absolute;inset-inline:8mm;top:15mm;height:1.6mm;background:var(--sk-color-brand-green);transform:rotate(-7.5deg)"></div>
+        <div style="position:absolute;inset-inline:16mm 8mm;top:23mm;height:1.6mm;background:var(--sk-color-brand-green);transform:rotate(-7.5deg)"></div>
+        <div style="position:absolute;inset-inline:8mm 24mm;top:31mm;height:1.6mm;background:var(--sk-color-brand-green);transform:rotate(-7.5deg)"></div></div>
+      <h2 class="t" style="margin-top:3mm;font-size:12pt">خط الصعود</h2><p class="small">خطوط رفيعة بزاوية 7.5° تحت العناوين وفواصل الأقسام. سُمكها = ¼ D.</p></div>
+    <div><div class="g" style="height:44mm;display:grid;place-items:center">
+        <div style="display:flex;gap:4mm"><span style="width:12mm;height:12mm;border-radius:50%;background:var(--sk-color-brand-yellow)"></span><span style="width:12mm;height:12mm;border-radius:50%;background:var(--sk-color-brand-ink)"></span></div></div>
+      <h2 class="t" style="margin-top:3mm;font-size:12pt">النقطتان</h2><p class="small">نقطتان = استفادتان. للتعداد، ومؤشّرات الخطوات، والمحمّل المتحرك.</p></div>
+    <div><div style="height:44mm;background:var(--sk-color-brand-paper);position:relative;overflow:hidden">
+        <div class="y" style="position:absolute;inset:0;clip-path:polygon(0 0,100% 0,100% 45%,0 78%)"></div></div>
+      <h2 class="t" style="margin-top:3mm;font-size:12pt">الشريط الصاعد</h2><p class="small">حافة سفلية ترتفع نحو اليمين بزاوية الشعار؛ لأقسام الواجهة الرئيسية والأغلفة.</p></div>
+    <div><div class="p" style="height:44mm;display:grid;place-items:center">
+        <div class="sk-chamfer y" style="width:34mm;height:24mm;--c:5mm"></div></div>
+      <h2 class="t" style="margin-top:3mm;font-size:12pt">الزاوية المشطوفة</h2><p class="small">قطع زاويتين متقابلتين كما في نهايات الحروف؛ للبطاقات والملصقات.</p></div>
+  </div>
+  <div class="note" style="margin-top:6mm">العناصر الجرافيكية تدعم الشعار ولا تحلّ محلّه. لا يُستخدم أكثر من عنصرين منها في التصميم الواحد.</div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">16</span></div>
+</section>
+
+<!-- 17 IMAGERY + VOICE -->
+<section class="page">
+  <div class="hdr"><span>03 · الأساسيات</span><span class="en">Imagery &amp; tone of voice</span></div>
+  <div class="eyebrow"><span class="n">3.6</span> الصور ونبرة الصوت</div>
+  <h1 class="t">صادقة، قريبة، واضحة<span class="en">Honest, close, clear</span></h1>
+  <span class="rule"></span>
+  <div class="cols c2" style="gap:10mm">
+    <div>
+      <h2 class="t">الصور</h2>
+      <div class="cols c3" style="gap:3mm">
+        <div class="ph" style="height:30mm">أسرة عُمانية<br>في بيتها</div>
+        <div class="ph" style="height:30mm">عمارة مدينة السلطان هيثم الحقيقية</div>
+        <div class="ph" style="height:30mm">ضوء نهار دافئ<br>ومساحات مفتوحة</div>
+      </div>
+      <ul class="sk-list small" style="margin-top:4mm">
+        <li>صور حقيقية للمشروع والناس؛ لا صور عامة لا تشبه عُمان.</li>
+        <li>الرندرات المعمارية تُوسَم بعبارة «تصور فني».</li>
+        <li>يمكن وضع الصورة داخل شريط صاعد أو إطار مشطوف، مع ترك الشعار على مساحة لونية صافية.</li>
+        <li>لا فلاتر لونية تغيّر لون البشرة أو المباني.</li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="t">نبرة الصوت</h2>
+      <table class="spec">
+        <tr><th>نقول</th><th>نتجنّب</th></tr>
+        <tr><td>«استفد اليوم بشقة، واستفد مرة أخرى بعد 5 سنوات.»</td><td>«احصل على شقتين مجانًا!»</td></tr>
+        <tr><td>«بعد 5 سنوات من استلام الشقة»</td><td>«بعد 5 سنوات» دون نقطة البداية</td></tr>
+        <tr><td>«تبقى الشقة ملكك: احتفظ بها أو بِعها لاحقًا»</td><td>وعود بعوائد أو أسعار مضمونة</td></tr>
+        <tr><td>«أرض، أو دعم لوحدة سكنية»</td><td>مصطلحات قانونية بلا شرح</td></tr>
+      </table>
+      <p class="small" style="margin-top:3mm"><b>الشخصية:</b> واضحة (جملة واحدة لكل فكرة)، مطمئنة (لغة الحقوق لا المنّة)، محفّزة (أفعال أمر قريبة: استفد، اختر، احتفظ). العربية الفصحى المبسّطة هي الأصل، والإنجليزية ترجمة لا العكس.</p>
+    </div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">17</span></div>
+</section>
+
+<!-- 18 DIVIDER 04 -->
+<section class="page g divider">
+  <div class="num">04</div>
+  <h1>نظام التصميم</h1>
+  <div class="en" style="color:var(--sk-color-brand-ink);font-size:13pt">Design system · tokens, components, layout</div>
+</section>
+
+<!-- 19 TOKENS -->
+<section class="page">
+  <div class="hdr"><span>04 · نظام التصميم</span><span class="en">Design tokens</span></div>
+  <div class="eyebrow"><span class="n">4.1</span> الرموز</div>
+  <h1 class="t">مصدر واحد للحقيقة<span class="en">One source of truth — tokens.json</span></h1>
+  <span class="rule"></span>
+  <div class="cols c3" style="gap:8mm">
+    <div>
+      <h2 class="t">المسافات · قاعدة 4px</h2>
+      {{SPACE_BARS}}
+    </div>
+    <div>
+      <h2 class="t">الزوايا والحدود</h2>
+      <div style="display:flex;gap:3mm;flex-wrap:wrap">
+        <div style="text-align:center"><div style="width:18mm;height:14mm;background:var(--sk-color-green-100);border:2px solid var(--sk-color-brand-ink)"></div><span class="mono small">none 0</span></div>
+        <div style="text-align:center"><div style="width:18mm;height:14mm;background:var(--sk-color-green-100);border:2px solid var(--sk-color-brand-ink);border-radius:4px"></div><span class="mono small">md 4</span></div>
+        <div style="text-align:center"><div style="width:18mm;height:14mm;background:var(--sk-color-green-100);border:2px solid var(--sk-color-brand-ink);border-radius:8px"></div><span class="mono small">lg 8</span></div>
+        <div style="text-align:center"><div class="sk-chamfer" style="width:18mm;height:14mm;background:var(--sk-color-brand-ink);--c:4mm"></div><span class="mono small">chamfer 14</span></div>
+      </div>
+      <p class="small" style="margin-top:3mm">الشعار حادّ الزوايا؛ لذا تبقى الزوايا صغيرة. الدائرة الكاملة محجوزة لموتيف النقاط.</p>
+      <h2 class="t" style="margin-top:4mm">الظلال</h2>
+      <div style="display:flex;gap:5mm">
+        <div style="width:20mm;height:14mm;background:#fff;box-shadow:var(--sk-shadow-sm)"></div>
+        <div style="width:20mm;height:14mm;background:#fff;box-shadow:var(--sk-shadow-md)"></div>
+        <div style="width:20mm;height:14mm;background:var(--sk-color-brand-yellow);border:2px solid var(--sk-color-brand-ink);box-shadow:var(--sk-shadow-block)"></div>
+      </div>
+      <p class="small mono" style="margin-top:2mm">sm · md · block</p>
+    </div>
+    <div>
+      <h2 class="t">الملفات</h2>
+      <table class="spec">
+        <tr><td class="mono">tokens.json</td><td>المصدر (صيغة W3C)</td></tr>
+        <tr><td class="mono">tokens.css</td><td>متغيرات <span class="mono">--sk-*</span></td></tr>
+        <tr><td class="mono">tailwind.preset.js</td><td>إعداد Tailwind</td></tr>
+        <tr><td class="mono">tokens.flat.json</td><td>لـFigma والسكربتات</td></tr>
+        <tr><td class="mono">components.css</td><td>المكوّنات الجاهزة</td></tr>
+        <tr><td class="mono">index.html</td><td>مرجع حيّ للمكوّنات</td></tr>
+      </table>
+      <p class="small" style="margin-top:3mm">التسمية: <span class="mono">--sk-{فئة}-{اسم}-{درجة}</span><br>مثال: <span class="mono">--sk-color-green-700</span></p>
+    </div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">19</span></div>
+</section>
+
+<!-- 20 COMPONENTS -->
+<section class="page p">
+  <div class="hdr"><span>04 · نظام التصميم</span><span class="en">Components</span></div>
+  <div class="eyebrow"><span class="n">4.2</span> المكوّنات</div>
+  <h1 class="t">مكوّنات جاهزة للاستخدام<span class="en">Ready-made components (components.css)</span></h1>
+  <span class="rule"></span>
+  <div class="cols c3" style="gap:8mm;font-size:10pt">
+    <div class="sk-stack">
+      <div class="tag">الأزرار</div>
+      <div style="display:flex;gap:3mm;flex-wrap:wrap">
+        <a class="sk-btn sk-btn--primary">قدّم الآن <span class="sk-arrow">←</span></a>
+        <a class="sk-btn sk-btn--secondary">احسب استحقاقك</a>
+        <a class="sk-btn sk-btn--outline">الشروط</a>
+        <a class="sk-btn sk-btn--ghost">الأسئلة الشائعة</a>
+      </div>
+      <div class="tag">الوسوم</div>
+      <div style="display:flex;gap:2mm;flex-wrap:wrap"><span class="sk-badge"><span class="sk-dot"></span> الاستفادة الأولى</span><span class="sk-badge sk-badge--yellow">جديد</span><span class="sk-badge sk-badge--ink">بعد 5 سنوات</span></div>
+      <div class="tag">الحقول</div>
+      <div class="sk-field"><label class="sk-label">الرقم المدني</label><input class="sk-input" value="12345678"><span class="sk-help">8 أرقام كما في البطاقة.</span></div>
+    </div>
+    <div class="sk-stack">
+      <div class="tag">البطاقات</div>
+      <div class="sk-card"><h3 style="font-size:14pt;margin:0 0 2mm">شقق مدينة السلطان هيثم</h3><p class="small muted" style="margin:0">غرفتان وثلاث غرف · تسليم 2027</p></div>
+      <div class="sk-card sk-card--poster sk-surface-yellow" style="margin-inline-end:2mm"><h3 style="font-size:14pt;margin:0 0 2mm">استفد مرتين</h3><p class="small" style="margin:0">شقة اليوم، واستحقاق جديد بعد 5 سنوات.</p></div>
+      <div class="sk-stat"><span class="sk-stat__value">2×</span><span class="sk-stat__label">استفادتان بدل واحدة</span></div>
+    </div>
+    <div class="sk-stack">
+      <div class="tag">مكوّن المسار (التوقيع)</div>
+      <div class="sk-journey" style="grid-template-columns:1fr;gap:2mm">
+        <div class="sk-journey__step"><div class="sk-journey__index">١</div><b>شقة</b> في مدينة السلطان هيثم</div>
+        <div class="sk-journey__gap" style="min-block-size:14mm">5 سنوات</div>
+        <div class="sk-journey__step sk-journey__step--second"><div class="sk-journey__index">٢</div><b>أرض</b> أو <b>دعم</b> لوحدة سكنية</div>
+      </div>
+      <div class="tag">المحمّل</div>
+      <div class="sk-loader" aria-label="جارٍ التحميل"><span></span><span></span></div>
+    </div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">20</span></div>
+</section>
+
+<!-- 21 GRID + FORMATS -->
+<section class="page">
+  <div class="hdr"><span>04 · نظام التصميم</span><span class="en">Grid &amp; formats</span></div>
+  <div class="eyebrow"><span class="n">4.3</span> الشبكة والمقاسات</div>
+  <h1 class="t">من اليمين إلى اليسار دائمًا<span class="en">Right-to-left first</span></h1>
+  <span class="rule"></span>
+  <div class="cols c2" style="gap:10mm">
+    <div>
+      <h2 class="t">شبكة الويب</h2>
+      <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2mm;height:26mm;padding:0 4mm;background:var(--sk-color-neutral-50)">{{GRID_COLS}}</div>
+      <table class="spec" style="margin-top:3mm">
+        <tr><th>نقطة التوقف</th><th>العرض</th><th>الأعمدة</th><th>الهامش</th></tr>
+        <tr><td>جوال</td><td class="mono">&lt; 768</td><td class="mono">4</td><td class="mono">16px</td></tr>
+        <tr><td>لوحي</td><td class="mono">768–1279</td><td class="mono">8</td><td class="mono">32px</td></tr>
+        <tr><td>سطح المكتب</td><td class="mono">≥ 1280</td><td class="mono">12</td><td class="mono">48px · حاوية 1200</td></tr>
+      </table>
+      <p class="small" style="margin-top:3mm">الاتجاه <span class="mono">dir="rtl"</span>، والخصائص المنطقية (<span class="mono">margin-inline-start</span>…) بدل left/right. الأسهم «إلى الأمام» تشير لليسار.</p>
+    </div>
+    <div>
+      <h2 class="t">مقاسات التواصل الاجتماعي</h2>
+      <div style="display:flex;gap:6mm;align-items:flex-end">
+        <div style="text-align:center"><div class="y" style="width:34mm;height:34mm;position:relative;outline:1px dashed var(--sk-color-brand-ink);outline-offset:-3mm"></div><span class="small mono">1080×1080</span></div>
+        <div style="text-align:center"><div class="y" style="width:30mm;height:37.5mm;position:relative;outline:1px dashed var(--sk-color-brand-ink);outline-offset:-3mm"></div><span class="small mono">1080×1350</span></div>
+        <div style="text-align:center"><div class="g" style="width:27mm;height:48mm;position:relative"><div style="position:absolute;inset:6.3mm 0;border-block:1px dashed var(--sk-color-brand-ink)"></div></div><span class="small mono">1080×1920</span></div>
+      </div>
+      <ul class="sk-list small" style="margin-top:4mm">
+        <li>الهامش الآمن للمنشورات 64px من كل جهة.</li>
+        <li>القصص والريلز: اترك 250px أعلى وأسفل خاليةً من النص والشعار.</li>
+        <li>الشعار في الزاوية العليا اليسرى أو أسفل المنتصف، بعرض لا يقل عن 22% من عرض التصميم.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">21</span></div>
+</section>
+
+<!-- 22 DIVIDER 05 -->
+<section class="page y divider">
+  <div class="num">05</div>
+  <h1>نظام الحركة</h1>
+  <div class="en" style="color:var(--sk-color-brand-ink);font-size:13pt">Motion system</div>
+</section>
+
+<!-- 23 MOTION PRINCIPLES -->
+<section class="page">
+  <div class="hdr"><span>05 · نظام الحركة</span><span class="en">Motion principles &amp; tokens</span></div>
+  <div class="eyebrow"><span class="n">5.1</span> مبادئ ورموز الحركة</div>
+  <h1 class="t">نصعد، على إيقاعين<span class="en">We ascend, in two beats</span></h1>
+  <span class="rule"></span>
+  <div class="cols c3" style="gap:6mm">
+    <div class="box y"><h2 class="t">١ · الصعود</h2><p class="small">تتحرك العناصر إلى الأعلى على خط زاوية الشعار (7.5°)، بسرعة في البداية واستقرار طويل في النهاية (منحنى <span class="mono">ascend</span>). لا شيء يسقط أو يرتدّ بعنف.</p></div>
+    <div class="box g"><h2 class="t">٢ · إيقاعان</h2><p class="small">نبضة · توقّف · نبضة. كل تسلسل مهم يُبنى على مرحلتين كالاستفادتين، والتوقف بينهما (300ms) هو «السنوات الخمس».</p></div>
+    <div class="box k"><h2 class="t" style="color:var(--sk-color-brand-yellow)">٣ · الخطوط تقود</h2><p class="small" style="color:#fff">تُرسم الخطوط أولًا من اليمين إلى اليسار (اتجاه القراءة)، ثم يتبعها المحتوى. النقاط تظهر أخيرًا بارتداد خفيف (<span class="mono">pop</span>).</p></div>
+  </div>
+  <div class="cols c2" style="gap:10mm;margin-top:6mm">
+    <table class="spec">
+      <tr><th>المدة</th><th>القيمة</th><th>الاستخدام</th></tr>
+      <tr><td class="mono">instant</td><td class="mono">80ms</td><td>الضغط والتبديل</td></tr>
+      <tr><td class="mono">fast</td><td class="mono">160ms</td><td>المرور والتركيز</td></tr>
+      <tr><td class="mono">base</td><td class="mono">240ms</td><td>معظم انتقالات الواجهة</td></tr>
+      <tr><td class="mono">moderate</td><td class="mono">360ms</td><td>البطاقات واللوحات</td></tr>
+      <tr><td class="mono">slow</td><td class="mono">560ms</td><td>محتوى الصفحة الرئيسية</td></tr>
+      <tr><td class="mono">beat / pause</td><td class="mono">600 / 300ms</td><td>الإيقاع المزدوج</td></tr>
+      <tr><td class="mono">signature</td><td class="mono">2400ms</td><td>ظهور الشعار</td></tr>
+    </table>
+    <div>
+      <div class="cols c2" style="gap:4mm">
+        {{CURVES}}
+      </div>
+      <p class="small muted" style="margin-top:2mm">مع <span class="mono">prefers-reduced-motion</span> تتحوّل كل الحركات إلى ظهور فوري، ويُعرض الشعار في وضعه النهائي.</p>
+    </div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">23</span></div>
+</section>
+
+<!-- 24 LOGO REVEAL -->
+<section class="page">
+  <div class="hdr"><span>05 · نظام الحركة</span><span class="en">Logo reveal</span></div>
+  <div class="eyebrow"><span class="n">5.2</span> ظهور الشعار المتحرك</div>
+  <h1 class="t">2.4 ثانية من الصعود<span class="en">2.4 s signature reveal</span></h1>
+  <span class="rule"></span>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:3mm">
+    <figure style="margin:0"><img class="full" src="../../motion/renders/storyboard-01_300ms.png"><figcaption class="small"><b class="mono">0–600ms</b> الخطّان حول «و» يُرسمان من اليمين.</figcaption></figure>
+    <figure style="margin:0"><img class="full" src="../../motion/renders/storyboard-02_800ms.png"><figcaption class="small"><b class="mono">150–850ms</b> النبضة الأولى: «سكنة» تصعد ونقاطها تظهر.</figcaption></figure>
+    <figure style="margin:0"><img class="full" src="../../motion/renders/storyboard-03_1300ms.png"><figcaption class="small"><b class="mono">850–1270ms</b> «و» تهبط بين الخطين — الرابط.</figcaption></figure>
+    <figure style="margin:0"><img class="full" src="../../motion/renders/storyboard-04_1900ms.png"><figcaption class="small"><b class="mono">1150–2100ms</b> النبضة الثانية: «خزينة» تصعد وخطّاها يُرسمان.</figcaption></figure>
+    <figure style="margin:0"><img class="full" src="../../motion/renders/storyboard-05_2600ms.png"><figcaption class="small"><b class="mono">1650–2400ms</b> نقاط «خزينة» تستقرّ، ثم ثبات 800ms.</figcaption></figure>
+  </div>
+  <div class="cols c2" style="gap:10mm;margin-top:6mm">
+    <div class="note">الملفات: <span class="mono">brand/motion/logo-reveal.html</span> (يعمل في المتصفح) و<span class="mono">renders/</span> بصيغ MP4 (16:9 و9:16) وGIF على الخلفيتين.</div>
+    <div class="note">الاستخدام: بداية ونهاية الفيديوهات، وشاشة الافتتاح في التطبيق، ولا يُكرَّر داخل الفيديو الواحد. لا يُسرَّع أكثر من 1.5×.</div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">24</span></div>
+</section>
+
+<!-- 25 DIVIDER 06 -->
+<section class="page k divider">
+  <div class="num" style="color:var(--sk-color-brand-yellow)">06</div>
+  <h1>التطبيقات</h1>
+  <div class="en" style="color:var(--sk-color-green-200);font-size:13pt">Applications</div>
+</section>
+
+<!-- 26 APPLICATIONS -->
+<section class="page p">
+  <div class="hdr"><span>06 · التطبيقات</span><span class="en">Application examples</span></div>
+  <div class="eyebrow"><span class="n">6.1</span> أمثلة التطبيق</div>
+  <h1 class="t">الهوية في العمل<span class="en">The identity at work</span></h1>
+  <span class="rule"></span>
+  <div style="display:grid;grid-template-columns:62mm 40mm 1fr;gap:8mm;align-items:start">
+    <figure style="margin:0">
+      <div class="mock y" style="width:62mm;height:62mm;padding:5mm;box-sizing:border-box">
+        <div style="font-family:Changa;font-weight:800;font-size:15pt;line-height:1.25;color:var(--sk-color-brand-ink)">استفد اليوم بشقة…<br>واستفد مرة أخرى<br>بعد 5 سنوات.</div>
+        <div style="position:absolute;inset-inline:0;bottom:0;height:28mm;background:var(--sk-color-brand-green);clip-path:polygon(0 25%,100% 0,100% 100%,0 100%)"></div>
+        <svg class="mark" viewBox="{{MARK_VIEWBOX}}" style="position:absolute;width:17mm;left:5mm;bottom:4mm;color:var(--sk-color-brand-yellow)"><use href="#mark"/></svg>
+      </div>
+      <figcaption class="small" style="margin-top:2mm">منشور 1:1</figcaption>
+    </figure>
+    <figure style="margin:0">
+      <div class="mock g" style="width:40mm;height:71mm;padding:4mm;box-sizing:border-box">
+        <svg class="mark" viewBox="{{MARK_VIEWBOX}}" style="width:16mm;color:var(--sk-color-brand-yellow);margin-top:6mm"><use href="#mark"/></svg>
+        <div style="font-family:Changa;font-weight:800;font-size:12pt;line-height:1.25;margin-top:5mm">الشقة تبقى لك.<br>والاستحقاق يعود.</div>
+        <div style="margin-top:4mm;display:grid;gap:1.5mm;font-size:6.5pt;font-weight:600">
+          <div class="y" style="padding:1.5mm 2mm">١ · شقة في مدينة السلطان هيثم</div>
+          <div style="padding:0 2mm">⋯ 5 سنوات</div>
+          <div style="padding:1.5mm 2mm;background:var(--sk-color-brand-ink);color:var(--sk-color-brand-yellow)">٢ · أرض أو دعم لوحدة سكنية</div>
+        </div>
+      </div>
+      <figcaption class="small" style="margin-top:2mm">قصة 9:16</figcaption>
+    </figure>
+    <figure style="margin:0">
+      <div class="mock y" style="height:44mm;display:grid;grid-template-columns:1.4fr 1fr;align-items:center;padding:0 8mm;gap:6mm">
+        <div><div style="font-family:Changa;font-weight:800;font-size:21pt;line-height:1.15">سكنُك اليوم…<br>خزينتُك غدًا.</div><div class="small" style="margin-top:2mm;font-weight:600">مبادرة سكنية · مدينة السلطان هيثم</div></div>
+        <svg class="mark" viewBox="{{MARK_VIEWBOX}}"><use href="#mark"/></svg>
+      </div>
+      <figcaption class="small" style="margin-top:2mm">لوحة طريق 3:1</figcaption>
+      <div class="mock" style="height:24mm;margin-top:5mm;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 6mm">
+        <svg class="mark" viewBox="{{MARK_VIEWBOX}}" style="width:16mm"><use href="#mark"/></svg>
+        <div style="display:flex;gap:5mm;font-size:8pt;font-weight:600"><span>عن المبادرة</span><span>الاستحقاق</span><span>المشاريع</span><span>الأسئلة</span></div>
+        <span class="sk-btn sk-btn--primary" style="min-block-size:8mm;font-size:8pt;padding:0 4mm">قدّم الآن</span>
+      </div>
+      <figcaption class="small" style="margin-top:2mm">شريط الموقع الإلكتروني</figcaption>
+    </figure>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">26</span></div>
+</section>
+
+<!-- 27 CO-BRANDING + FILES -->
+<section class="page">
+  <div class="hdr"><span>06 · التطبيقات</span><span class="en">Co-branding &amp; files</span></div>
+  <div class="eyebrow"><span class="n">6.2</span> الشراكة مع الجهات والملفات</div>
+  <h1 class="t">مع الجهة الحكومية<span class="en">With the ministry &amp; partners</span></h1>
+  <span class="rule"></span>
+  <div class="cols c2" style="gap:10mm">
+    <div>
+      <div style="display:flex;align-items:center;gap:8mm;padding:8mm;background:#fff;border:1px solid var(--sk-color-neutral-200)">
+        <div class="ph" style="width:44mm;height:26mm;border:1px dashed var(--sk-color-neutral-400)">شعار وزارة الإسكان<br>والتخطيط العمراني<br>(الملف الرسمي)</div>
+        <div style="width:1px;height:26mm;background:var(--sk-color-brand-ink)"></div>
+        <svg class="mark" viewBox="{{MARK_VIEWBOX}}" style="width:32mm"><use href="#mark"/></svg>
+      </div>
+      <ul class="sk-list small" style="margin-top:4mm">
+        <li>شعار الجهة الحكومية أولًا (على اليمين)، ثم فاصل رأسي بلون الحبر، ثم شعار المبادرة.</li>
+        <li>الارتفاع البصري متساوٍ، والمسافة بين الشعارين = 2D.</li>
+        <li>شعارات الشركاء والمطوّرين تأتي في صف منفصل أصغر، تحت عبارة «بالشراكة مع».</li>
+        <li>يُستخدم ملف شعار الوزارة الرسمي كما هو، دون إعادة تلوين.</li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="t">فهرس الملفات</h2>
+      <table class="spec">
+        <tr><td class="mono">brand/logo/svg</td><td>للويب والتطبيقات</td></tr>
+        <tr><td class="mono">brand/logo/png</td><td>شفافة · 512 إلى 4096px</td></tr>
+        <tr><td class="mono">brand/logo/pdf</td><td>متجهية RGB</td></tr>
+        <tr><td class="mono">brand/logo/pdf-cmyk</td><td>للمطابع</td></tr>
+        <tr><td class="mono">brand/logo/ai</td><td>Adobe Illustrator</td></tr>
+        <tr><td class="mono">brand/fonts</td><td>Changa · IBM Plex Sans Arabic (OFL)</td></tr>
+        <tr><td class="mono">brand/design-system</td><td>الرموز والمكوّنات</td></tr>
+        <tr><td class="mono">brand/motion</td><td>الحركة والفيديوهات</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="ftr"><span>سكنة وخزينة</span><span class="pg">27</span></div>
+</section>
+
+<!-- 28 BACK COVER -->
+<section class="page g" style="display:grid;place-items:center">
+  <div style="text-align:center;width:170mm"><div style="width:120mm;margin:0 auto">
+    <svg class="mark" viewBox="{{MARK_VIEWBOX}}" style="color:var(--sk-color-brand-yellow)"><use href="#mark"/></svg></div>
+    <div style="font-family:Changa;font-weight:800;font-size:16pt;margin-top:10mm">استفد اليوم بشقة، واستفد مرة أخرى بعد 5 سنوات.</div>
+    <div class="small" style="margin-top:3mm">دليل الهوية البصرية · الإصدار 1.0 · أكتوبر 2026</div>
+  </div>
+</section>
+</body>
+</html>

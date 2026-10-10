@@ -1,0 +1,65 @@
+/* Sukna w Khazinah — Motion System v1.0
+   Requires ../design-system/tokens.css (durations, easings, angle).
+   Three principles: ASCEND (move up along the 7.5° ascent line),
+   TWO BEATS (beat · pause · beat — the two benefits), LINES LEAD (rules draw first, content follows). */
+
+:root {
+  /* Ascent vector: 48px of horizontal travel climbs 6.32px (tan 7.5°). */
+  --sk-ascent-x: 48px;
+  --sk-ascent-y: 6.32px;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes sk-ascend-in {        /* travel up the ascent line, from lower-left */
+  from { opacity: 0; transform: translate(calc(var(--sk-ascent-x) * -1), var(--sk-ascent-y)); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes sk-rise-in {          /* UI default: straight rise */
+  from { opacity: 0; transform: translateY(var(--sk-motion-distance-rise)); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes sk-fade-out {
+  to { opacity: 0; transform: translateY(calc(var(--sk-motion-distance-nudge) * -1)); }
+}
+@keyframes sk-draw-rtl {         /* rules draw from the right edge (reading direction) */
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes sk-pop {              /* dots only */
+  0%   { opacity: 0; transform: scale(0); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes sk-double-beat {      /* two pulses, then rest — loaders, attention */
+  0%, 100% { transform: scale(1); }
+  12%      { transform: scale(1.18); }
+  24%      { transform: scale(1); }
+  40%      { transform: scale(1.18); }
+  52%      { transform: scale(1); }
+}
+
+/* ---------- Utilities ---------- */
+.sk-anim-ascend { animation: sk-ascend-in var(--sk-motion-duration-slow) var(--sk-motion-easing-ascend) both; }
+.sk-anim-rise   { animation: sk-rise-in var(--sk-motion-duration-moderate) var(--sk-motion-easing-enter) both; }
+.sk-anim-exit   { animation: sk-fade-out var(--sk-motion-duration-fast) var(--sk-motion-easing-exit) both; }
+.sk-anim-draw   { transform-origin: right center; animation: sk-draw-rtl var(--sk-motion-duration-slow) var(--sk-motion-easing-draw) both; }
+[dir="ltr"] .sk-anim-draw { transform-origin: left center; }
+.sk-anim-pop    { animation: sk-pop var(--sk-motion-duration-base) var(--sk-motion-easing-pop) both; }
+
+/* Stagger children: set --i on each child (style="--i:0..n"). */
+.sk-stagger > * { animation-delay: calc(var(--i, 0) * var(--sk-motion-stagger-content)); }
+
+/* Two-beat sequence: beat 1 → pause → beat 2. */
+.sk-beat-1 { animation-delay: 0ms; }
+.sk-beat-2 { animation-delay: calc(var(--sk-motion-duration-beat) + var(--sk-motion-duration-pause)); }
+
+/* Loader: two dots, double beat (the two benefits). */
+.sk-loader { display: inline-flex; gap: 8px; }
+.sk-loader span { inline-size: 12px; block-size: 12px; border-radius: 50%; background: var(--sk-color-brand-green); animation: sk-double-beat 1400ms var(--sk-motion-easing-standard) infinite; }
+.sk-loader span:nth-child(2) { background: var(--sk-color-brand-ink); animation-delay: 180ms; }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .sk-anim-ascend, .sk-anim-rise, .sk-anim-draw, .sk-anim-pop, .sk-anim-exit { animation: sk-fade 1ms linear both; }
+  .sk-loader span { animation: none; opacity: 0.6; }
+}
+@keyframes sk-fade { from { opacity: 0; } to { opacity: 1; } }

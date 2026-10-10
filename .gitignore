@@ -1,0 +1,4 @@
+brand/guidelines/src/_built.html
+brand/motion/renders/.frames-*/
+__pycache__/
+.DS_Store
