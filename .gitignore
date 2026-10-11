@@ -2,3 +2,11 @@ brand/guidelines/src/_built.html
 brand/motion/renders/.frames-*/
 __pycache__/
 .DS_Store
+
+# Performance report — personal data and generated artefacts are never committed (public repository)
+reports/sakna-khazina-performance/data/raw/
+reports/sakna-khazina-performance/data/processed/
+reports/sakna-khazina-performance/data/aggregates/
+reports/sakna-khazina-performance/charts/
+reports/sakna-khazina-performance/build/
+reports/sakna-khazina-performance/output/

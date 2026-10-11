@@ -1,0 +1,997 @@
+{
+  "$description": "WUSOOL for Investment — وصول للاستثمار · digital & motion design tokens. Source of truth: src/tokens/*.ts",
+  "$version": "1.0.0",
+  "$status": "approved 2026-10-01 — WUSOOL for Investment (client)",
+  "color": {
+    "brand": {
+      "status": "approved",
+      "source": "WUSOOL_Brand_Guidelines_2026 §03",
+      "midnightGreen": {
+        "$value": "#014750",
+        "$type": "color"
+      },
+      "aquamarine": {
+        "$value": "#66C8C9",
+        "$type": "color"
+      },
+      "marigold": {
+        "$value": "#FFCC31",
+        "$type": "color"
+      },
+      "whiteSmoke": {
+        "$value": "#F4F4F4",
+        "$type": "color"
+      },
+      "white": {
+        "$value": "#FFFFFF",
+        "$type": "color"
+      },
+      "aquamarineText": {
+        "$value": "#1F7476",
+        "$type": "color"
+      }
+    },
+    "tints": {
+      "status": "approved",
+      "midnight": {
+        "8": {
+          "$value": "#EBF0F1",
+          "$type": "color"
+        },
+        "20": {
+          "$value": "#CCDADC",
+          "$type": "color"
+        },
+        "40": {
+          "$value": "#99B5B9",
+          "$type": "color"
+        },
+        "60": {
+          "$value": "#679196",
+          "$type": "color"
+        },
+        "80": {
+          "$value": "#346C73",
+          "$type": "color"
+        },
+        "100": {
+          "$value": "#014750",
+          "$type": "color"
+        }
+      },
+      "aquamarine": {
+        "8": {
+          "$value": "#F3FBFB",
+          "$type": "color"
+        },
+        "20": {
+          "$value": "#E0F4F4",
+          "$type": "color"
+        },
+        "40": {
+          "$value": "#C2E9E9",
+          "$type": "color"
+        },
+        "60": {
+          "$value": "#A3DEDF",
+          "$type": "color"
+        },
+        "80": {
+          "$value": "#85D3D4",
+          "$type": "color"
+        },
+        "100": {
+          "$value": "#66C8C9",
+          "$type": "color"
+        }
+      }
+    },
+    "shades": {
+      "status": "approved v1.0",
+      "midnight900": {
+        "$value": "#01353C",
+        "$type": "color"
+      },
+      "midnight950": {
+        "$value": "#00242A",
+        "$type": "color"
+      },
+      "ink": {
+        "$value": "#001518",
+        "$type": "color"
+      }
+    },
+    "roles": {
+      "status": "approved v1.0",
+      "light": {
+        "background": {
+          "$value": "#F4F4F4",
+          "$type": "color"
+        },
+        "backgroundAlt": {
+          "$value": "#FFFFFF",
+          "$type": "color"
+        },
+        "surface": {
+          "$value": "#FFFFFF",
+          "$type": "color"
+        },
+        "text": {
+          "$value": "#014750",
+          "$type": "color"
+        },
+        "textMuted": {
+          "$value": "#346C73",
+          "$type": "color"
+        },
+        "accentText": {
+          "$value": "#1F7476",
+          "$type": "color"
+        },
+        "accentGraphic": {
+          "$value": "#66C8C9",
+          "$type": "color"
+        },
+        "highlight": {
+          "$value": "#FFCC31",
+          "$type": "color"
+        },
+        "line": {
+          "$value": "#CCDADC",
+          "$type": "color"
+        },
+        "icon": {
+          "$value": "#014750",
+          "$type": "color"
+        },
+        "logo": {
+          "$value": "primary",
+          "$type": "color"
+        }
+      },
+      "dark": {
+        "background": {
+          "$value": "#014750",
+          "$type": "color"
+        },
+        "backgroundAlt": {
+          "$value": "#01353C",
+          "$type": "color"
+        },
+        "surface": {
+          "$value": "#01353C",
+          "$type": "color"
+        },
+        "text": {
+          "$value": "#F4F4F4",
+          "$type": "color"
+        },
+        "textMuted": {
+          "$value": "#C2E9E9",
+          "$type": "color"
+        },
+        "accentText": {
+          "$value": "#66C8C9",
+          "$type": "color"
+        },
+        "accentGraphic": {
+          "$value": "#66C8C9",
+          "$type": "color"
+        },
+        "highlight": {
+          "$value": "#FFCC31",
+          "$type": "color"
+        },
+        "line": {
+          "$value": "rgba(244,244,244,0.16)",
+          "$type": "color"
+        },
+        "icon": {
+          "$value": "#66C8C9",
+          "$type": "color"
+        },
+        "logo": {
+          "$value": "reversed",
+          "$type": "color"
+        }
+      },
+      "footage": {
+        "background": {
+          "$value": "#001518",
+          "$type": "color"
+        },
+        "backgroundAlt": {
+          "$value": "#00242A",
+          "$type": "color"
+        },
+        "surface": {
+          "$value": "rgba(1,53,60,0.72)",
+          "$type": "color"
+        },
+        "text": {
+          "$value": "#FFFFFF",
+          "$type": "color"
+        },
+        "textMuted": {
+          "$value": "#E0F4F4",
+          "$type": "color"
+        },
+        "accentText": {
+          "$value": "#66C8C9",
+          "$type": "color"
+        },
+        "accentGraphic": {
+          "$value": "#66C8C9",
+          "$type": "color"
+        },
+        "highlight": {
+          "$value": "#FFCC31",
+          "$type": "color"
+        },
+        "line": {
+          "$value": "rgba(255,255,255,0.22)",
+          "$type": "color"
+        },
+        "icon": {
+          "$value": "#F4F4F4",
+          "$type": "color"
+        },
+        "logo": {
+          "$value": "mono-light",
+          "$type": "color"
+        }
+      }
+    },
+    "dataViz": {
+      "status": "approved mapping",
+      "light": {
+        "main": "#014750",
+        "compare": "#66C8C9",
+        "highlight": "#FFCC31",
+        "track": "#EBF0F1",
+        "grid": "#CCDADC",
+        "label": "#346C73"
+      },
+      "dark": {
+        "main": "#F4F4F4",
+        "compare": "#66C8C9",
+        "highlight": "#FFCC31",
+        "track": "rgba(244,244,244,0.10)",
+        "grid": "rgba(244,244,244,0.14)",
+        "label": "#C2E9E9"
+      }
+    }
+  },
+  "typography": {
+    "family": {
+      "status": "approved",
+      "$value": "Almarai",
+      "$type": "fontFamily",
+      "$description": "Almarai — only typeface; Tahoma/Arial = technical fallback only"
+    },
+    "weights": {
+      "status": "approved",
+      "light": {
+        "$value": 300,
+        "$type": "fontWeight"
+      },
+      "regular": {
+        "$value": 400,
+        "$type": "fontWeight"
+      },
+      "bold": {
+        "$value": 700,
+        "$type": "fontWeight"
+      },
+      "extraBold": {
+        "$value": 800,
+        "$type": "fontWeight"
+      }
+    },
+    "guideScale": {
+      "status": "approved",
+      "display": {
+        "size": 56,
+        "lh": 1.2,
+        "weight": 800
+      },
+      "h1": {
+        "size": 40,
+        "lh": 1.25,
+        "weight": 800
+      },
+      "h2": {
+        "size": 28,
+        "lh": 1.35,
+        "weight": 700
+      },
+      "h3": {
+        "size": 20,
+        "lh": 1.4,
+        "weight": 700
+      },
+      "body": {
+        "size": 16,
+        "lh": 1.75,
+        "weight": 400
+      },
+      "caption": {
+        "size": 13,
+        "lh": 1.6,
+        "weight": 400
+      },
+      "label": {
+        "size": 12,
+        "lh": 1.4,
+        "weight": 700
+      }
+    },
+    "videoScale": {
+      "status": "approved v1.0",
+      "hero": {
+        "size": 132,
+        "lh": 1.18,
+        "weight": 800,
+        "maxLines": 3
+      },
+      "display": {
+        "size": 104,
+        "lh": 1.2,
+        "weight": 800,
+        "maxLines": 3
+      },
+      "h1": {
+        "size": 80,
+        "lh": 1.25,
+        "weight": 800,
+        "maxLines": 3
+      },
+      "h2": {
+        "size": 60,
+        "lh": 1.3,
+        "weight": 700,
+        "maxLines": 3
+      },
+      "h3": {
+        "size": 46,
+        "lh": 1.35,
+        "weight": 700,
+        "maxLines": 2
+      },
+      "body": {
+        "size": 38,
+        "lh": 1.6,
+        "weight": 400,
+        "maxLines": 5
+      },
+      "subtitle": {
+        "size": 50,
+        "lh": 1.5,
+        "weight": 700,
+        "maxLines": 2
+      },
+      "label": {
+        "size": 28,
+        "lh": 1.35,
+        "weight": 700,
+        "maxLines": 1
+      },
+      "micro": {
+        "size": 22,
+        "lh": 1.4,
+        "weight": 400,
+        "maxLines": 2
+      },
+      "figure": {
+        "size": 150,
+        "lh": 1,
+        "weight": 800,
+        "maxLines": 1
+      },
+      "figureXL": {
+        "size": 260,
+        "lh": 0.95,
+        "weight": 800,
+        "maxLines": 1
+      }
+    },
+    "kashida": {
+      "status": "approved v1.0",
+      "maxPerLine": 1,
+      "maxStretchUnits": 3
+    }
+  },
+  "spacing": {
+    "1": {
+      "$value": 4,
+      "$type": "dimension"
+    },
+    "2": {
+      "$value": 8,
+      "$type": "dimension"
+    },
+    "3": {
+      "$value": 12,
+      "$type": "dimension"
+    },
+    "4": {
+      "$value": 16,
+      "$type": "dimension"
+    },
+    "5": {
+      "$value": 24,
+      "$type": "dimension"
+    },
+    "6": {
+      "$value": 32,
+      "$type": "dimension"
+    },
+    "7": {
+      "$value": 48,
+      "$type": "dimension"
+    },
+    "8": {
+      "$value": 64,
+      "$type": "dimension"
+    },
+    "9": {
+      "$value": 96,
+      "$type": "dimension"
+    },
+    "status": "approved",
+    "videoDensity": 2
+  },
+  "radius": {
+    "status": "approved",
+    "small": {
+      "$value": 8,
+      "$type": "dimension"
+    },
+    "card": {
+      "$value": 16,
+      "$type": "dimension"
+    },
+    "full": {
+      "$value": 9999,
+      "$type": "dimension"
+    },
+    "video": {
+      "small": {
+        "$value": 16,
+        "$type": "dimension"
+      },
+      "card": {
+        "$value": 32,
+        "$type": "dimension"
+      },
+      "full": {
+        "$value": 9999,
+        "$type": "dimension"
+      }
+    }
+  },
+  "stroke": {
+    "status": "approved v1.0",
+    "hairline": {
+      "$value": 1.5,
+      "$type": "dimension"
+    },
+    "thin": {
+      "$value": 2,
+      "$type": "dimension"
+    },
+    "regular": {
+      "$value": 3,
+      "$type": "dimension"
+    },
+    "bold": {
+      "$value": 6,
+      "$type": "dimension"
+    }
+  },
+  "baselineRatio": {
+    "status": "approved",
+    "$value": 5.5,
+    "$type": "number",
+    "$description": "Baseline bar 1 : 5.5"
+  },
+  "glass": {
+    "status": "approved v1.0",
+    "dark": {
+      "clear": {
+        "tint": [
+          1,
+          71,
+          80
+        ],
+        "alpha": 0.34,
+        "blur": 28,
+        "saturate": 1.2,
+        "border": "rgba(255,255,255,0.14)",
+        "highlight": "rgba(255,255,255,0.10)",
+        "safeFor": "none"
+      },
+      "regular": {
+        "tint": [
+          1,
+          71,
+          80
+        ],
+        "alpha": 0.56,
+        "blur": 36,
+        "saturate": 1.15,
+        "border": "rgba(255,255,255,0.16)",
+        "highlight": "rgba(255,255,255,0.09)",
+        "safeFor": "large"
+      },
+      "dense": {
+        "tint": [
+          1,
+          53,
+          60
+        ],
+        "alpha": 0.74,
+        "blur": 44,
+        "saturate": 1.1,
+        "border": "rgba(255,255,255,0.14)",
+        "highlight": "rgba(255,255,255,0.07)",
+        "safeFor": "body"
+      },
+      "solid": {
+        "tint": [
+          1,
+          53,
+          60
+        ],
+        "alpha": 0.94,
+        "blur": 0,
+        "saturate": 1,
+        "border": "rgba(255,255,255,0.10)",
+        "highlight": "rgba(255,255,255,0.05)",
+        "safeFor": "body"
+      }
+    },
+    "light": {
+      "clear": {
+        "tint": [
+          255,
+          255,
+          255
+        ],
+        "alpha": 0.5,
+        "blur": 28,
+        "saturate": 1.2,
+        "border": "rgba(1,71,80,0.10)",
+        "highlight": "rgba(255,255,255,0.6)",
+        "safeFor": "none"
+      },
+      "regular": {
+        "tint": [
+          255,
+          255,
+          255
+        ],
+        "alpha": 0.7,
+        "blur": 36,
+        "saturate": 1.1,
+        "border": "rgba(1,71,80,0.10)",
+        "highlight": "rgba(255,255,255,0.7)",
+        "safeFor": "large"
+      },
+      "dense": {
+        "tint": [
+          255,
+          255,
+          255
+        ],
+        "alpha": 0.84,
+        "blur": 44,
+        "saturate": 1.05,
+        "border": "rgba(1,71,80,0.12)",
+        "highlight": "rgba(255,255,255,0.8)",
+        "safeFor": "body"
+      },
+      "solid": {
+        "tint": [
+          255,
+          255,
+          255
+        ],
+        "alpha": 0.97,
+        "blur": 0,
+        "saturate": 1,
+        "border": "rgba(1,71,80,0.12)",
+        "highlight": "rgba(255,255,255,0.9)",
+        "safeFor": "body"
+      }
+    }
+  },
+  "shadow": {
+    "status": "approved v1.0",
+    "none": {
+      "$value": "none",
+      "$type": "shadow"
+    },
+    "low": {
+      "$value": "0 8px 24px rgba(0,21,24,0.18)",
+      "$type": "shadow"
+    },
+    "mid": {
+      "$value": "0 18px 48px rgba(0,21,24,0.26)",
+      "$type": "shadow"
+    },
+    "high": {
+      "$value": "0 32px 80px rgba(0,21,24,0.34)",
+      "$type": "shadow"
+    }
+  },
+  "photoGradient": {
+    "status": "approved",
+    "from": 0.9,
+    "to": 0,
+    "reach": 0.5
+  },
+  "formats": {
+    "status": "approved grids + proposed 1:1",
+    "9x16": {
+      "id": "9x16",
+      "width": 1080,
+      "height": 1920,
+      "label": "Reel / Story 9:16",
+      "orientation": "portrait",
+      "columns": 6,
+      "gutter": 24,
+      "margin": {
+        "top": 250,
+        "right": 80,
+        "bottom": 250,
+        "left": 80
+      },
+      "typeScale": 1,
+      "logoWidth": 0.2,
+      "source": "guide §05 + §07 (reels respect 250 px top/bottom)"
+    },
+    "4x5": {
+      "id": "4x5",
+      "width": 1080,
+      "height": 1350,
+      "label": "Feed 4:5",
+      "orientation": "portrait",
+      "columns": 6,
+      "gutter": 24,
+      "margin": {
+        "top": 80,
+        "right": 80,
+        "bottom": 80,
+        "left": 80
+      },
+      "typeScale": 0.86,
+      "logoWidth": 0.2,
+      "source": "guide §05"
+    },
+    "1x1": {
+      "id": "1x1",
+      "width": 1080,
+      "height": 1080,
+      "label": "Square 1:1",
+      "orientation": "square",
+      "columns": 6,
+      "gutter": 24,
+      "margin": {
+        "top": 80,
+        "right": 80,
+        "bottom": 80,
+        "left": 80
+      },
+      "typeScale": 0.8,
+      "logoWidth": 0.2,
+      "source": "proposed — mirrors 4:5"
+    },
+    "16x9": {
+      "id": "16x9",
+      "width": 1920,
+      "height": 1080,
+      "label": "Landscape 16:9",
+      "orientation": "landscape",
+      "columns": 12,
+      "gutter": 24,
+      "margin": {
+        "top": 96,
+        "right": 96,
+        "bottom": 96,
+        "left": 96
+      },
+      "typeScale": 0.78,
+      "logoWidth": 0.12,
+      "source": "guide §05 (presentations 1920×1080)"
+    }
+  },
+  "platformSafeAreas": {
+    "status": "proposed — re-verify",
+    "reviewedOn": "2026-09-30",
+    "presets": {
+      "none": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "instagram-reels": {
+        "top": 220,
+        "right": 150,
+        "bottom": 420,
+        "left": 48
+      },
+      "meta-reels-ads": {
+        "top": 269,
+        "right": 65,
+        "bottom": 672,
+        "left": 65
+      },
+      "tiktok": {
+        "top": 160,
+        "right": 150,
+        "bottom": 480,
+        "left": 48
+      },
+      "youtube-shorts": {
+        "top": 200,
+        "right": 160,
+        "bottom": 400,
+        "left": 48
+      }
+    }
+  },
+  "icon": {
+    "status": "approved rules / proposed library",
+    "grid": 24,
+    "stroke": 1.8,
+    "linecap": "round",
+    "linejoin": "round",
+    "size": {
+      "sm": 40,
+      "md": 56,
+      "lg": 80,
+      "xl": 120
+    },
+    "containerPaddingRatio": 0.25,
+    "library": "lucide-react@0.544.0"
+  },
+  "zIndex": {
+    "status": "approved v1.0",
+    "background": 0,
+    "footage": 10,
+    "grade": 15,
+    "scrim": 20,
+    "graphics": 30,
+    "content": 40,
+    "overlay": 50,
+    "captions": 60,
+    "brandBug": 70,
+    "transition": 80,
+    "guides": 90,
+    "debug": 100
+  },
+  "motion": {
+    "status": "approved v1.0",
+    "easing": {
+      "arrive": [
+        0.16,
+        1,
+        0.3,
+        1
+      ],
+      "move": [
+        0.65,
+        0,
+        0.35,
+        1
+      ],
+      "leave": [
+        0.55,
+        0,
+        0.9,
+        0.35
+      ],
+      "draw": [
+        0.33,
+        0,
+        0.12,
+        1
+      ],
+      "linear": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    "duration": {
+      "instant": 0.12,
+      "fast": 0.28,
+      "base": 0.48,
+      "slow": 0.72,
+      "deliberate": 1,
+      "signature": 1.6
+    },
+    "springs": {
+      "settle": {
+        "damping": 200,
+        "stiffness": 110,
+        "mass": 1
+      },
+      "confident": {
+        "damping": 22,
+        "stiffness": 150,
+        "mass": 1
+      },
+      "energetic": {
+        "damping": 15,
+        "stiffness": 190,
+        "mass": 0.9
+      }
+    },
+    "travel": {
+      "micro": 12,
+      "small": 28,
+      "medium": 56,
+      "large": 110
+    },
+    "presets": {
+      "calm": {
+        "id": "calm",
+        "tempo": 1.3,
+        "spring": "settle",
+        "stagger": 0.14,
+        "travel": "small",
+        "maxScale": 1,
+        "rest": 0.9,
+        "bpm": 72
+      },
+      "confident": {
+        "id": "confident",
+        "tempo": 1,
+        "spring": "confident",
+        "stagger": 0.09,
+        "travel": "medium",
+        "maxScale": 1.02,
+        "rest": 0.6,
+        "bpm": 90
+      },
+      "energetic": {
+        "id": "energetic",
+        "tempo": 0.78,
+        "spring": "energetic",
+        "stagger": 0.06,
+        "travel": "medium",
+        "maxScale": 1.06,
+        "rest": 0.35,
+        "bpm": 112
+      }
+    },
+    "hierarchy": [
+      "anchor",
+      "headline",
+      "keyword",
+      "supporting",
+      "data",
+      "meta",
+      "decor"
+    ],
+    "rules": {
+      "maxSimultaneousStarts": 2,
+      "exitRatio": 0.6,
+      "maxAmbientSpeed": 12,
+      "reducedFade": 0.2
+    }
+  },
+  "audio": {
+    "status": "approved v1.0",
+    "sfx": {
+      "reveal": {
+        "id": "reveal",
+        "file": "audio/sfx/wusool_reveal.wav",
+        "label": "Reveal",
+        "ar": "كشف",
+        "gainDb": -6,
+        "priority": 3,
+        "length": 1.6,
+        "use": "A headline or key card appears. Max once per scene."
+      },
+      "transition": {
+        "id": "transition",
+        "file": "audio/sfx/wusool_transition.wav",
+        "label": "Soft transition",
+        "ar": "انتقال ناعم",
+        "gainDb": -9,
+        "priority": 2,
+        "length": 1.5,
+        "use": "Scene change (aperture / baseline wipe). Never on cuts inside a scene."
+      },
+      "accent": {
+        "id": "accent",
+        "file": "audio/sfx/wusool_accent.wav",
+        "label": "Accent",
+        "ar": "تأكيد",
+        "gainDb": -8,
+        "priority": 3,
+        "length": 0.9,
+        "use": "A keyword or Marigold highlight lands. Max 2 per 10 s."
+      },
+      "tick": {
+        "id": "tick",
+        "file": "audio/sfx/wusool_tick.wav",
+        "label": "Number tick",
+        "ar": "نبضة رقم",
+        "gainDb": -14,
+        "priority": 1,
+        "length": 0.09,
+        "use": "Single discrete step (step index, chip). Never per frame of a counter."
+      },
+      "roll": {
+        "id": "roll",
+        "file": "audio/sfx/wusool_roll.wav",
+        "label": "Number roll",
+        "ar": "دوران الرقم",
+        "gainDb": -13,
+        "priority": 1,
+        "length": 1.3,
+        "use": "Under an AnimatedNumber count-up (one file, not per-digit)."
+      },
+      "complete": {
+        "id": "complete",
+        "file": "audio/sfx/wusool_complete.wav",
+        "label": "Progress completion",
+        "ar": "اكتمال",
+        "gainDb": -8,
+        "priority": 4,
+        "length": 1.4,
+        "use": "A progress bar/ring or timeline reaches its target."
+      },
+      "cta": {
+        "id": "cta",
+        "file": "audio/sfx/wusool_cta.wav",
+        "label": "CTA resolution",
+        "ar": "حسم الدعوة",
+        "gainDb": -6,
+        "priority": 5,
+        "length": 2.6,
+        "use": "CTA card settles. Once per video."
+      },
+      "signature": {
+        "id": "signature",
+        "file": "audio/sfx/wusool_signature.wav",
+        "label": "Sonic signature",
+        "ar": "التوقيع الصوتي",
+        "gainDb": -4,
+        "priority": 6,
+        "length": 3.4,
+        "use": "Logo reveal / end card only. Once per video."
+      }
+    },
+    "mix": {
+      "voice": 0,
+      "musicUnderVoice": -20,
+      "musicAlone": -12,
+      "sfxUnderVoice": -8,
+      "duckAttack": 0.12,
+      "duckRelease": 0.45,
+      "masterCeilingDbfs": -1,
+      "targetLufsSocial": -14
+    },
+    "density": {
+      "minGap": 0.35,
+      "maxPerTenSeconds": 6,
+      "maxAccentsPerTenSeconds": 2
+    },
+    "music": {
+      "showcaseBed": {
+        "file": "audio/music/wusool_showcase_bed.wav",
+        "bpm": 90,
+        "key": "D major",
+        "gainDb": -3,
+        "lufs": -16
+      }
+    }
+  }
+}

@@ -20,6 +20,7 @@ This repository holds the brand identity, design system and motion system.
 | [`brand/fonts/`](brand/fonts/) | Changa + IBM Plex Sans Arabic (SIL OFL 1.1) |
 | [`.claude/skills/`](.claude/skills/) | Claude skills: `sukna-brand-identity`, `sukna-design-system`, `sukna-motion-system` |
 | [`scripts/`](scripts/) | Reproducible build pipeline |
+| [`reports/sakna-khazina-performance/`](reports/sakna-khazina-performance/) | **WUSOOL performance report** (October Urban 2026 booth): data pipeline → A4 Arabic PDF. Personal data and the PDF are git-ignored (public repo) |
 
 ## Brand at a glance
 | | |
