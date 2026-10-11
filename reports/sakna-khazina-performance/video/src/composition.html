@@ -98,7 +98,8 @@ function fadeIn(e, t, d = .5) { A(e, [{ opacity: 0 }, { opacity: 1 }], t, d, EZ.
 function drawX(e, t, d = .7) { A(e, [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], t, d, EZ.draw); }
 function growY(e, t, d = .8) { A(e, [{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)' }], t, d, EZ.count); }
 function pop(e, t, d = .32) { A(e, [{ opacity: 0, transform: 'scale(0)' }, { opacity: 1, transform: 'scale(1)' }], t, d, EZ.pop); }
-function out(e, t, d = .3) { A(e, [{ opacity: 1, translate: '0 0' }, { opacity: 0, translate: '0 -18px' }], t, d, EZ.exit, 'forwards'); }
+// exit from whatever opacity the element currently has (implicit start keyframe), so already-hidden items stay hidden
+function out(e, t, d = .3) { A(e, [{ translate: '0 0' }, { opacity: 0, translate: '0 -18px' }], t, d, EZ.exit, 'forwards'); }
 function counter(e, t, d, to, dec = 0, pre = '', post = '') {
   TICKS.push(tt => { const p = Math.min(1, Math.max(0, (tt - t) / d)); const k = 1 - Math.pow(1 - p, 3.2);
     e.innerHTML = pre + N(fmt(to * k, dec)) + post; });
