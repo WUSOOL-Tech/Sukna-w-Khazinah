@@ -17,7 +17,7 @@ This is a ~128-second 1920 × 1080 motion film of the performance report. It has
 | 5 | Peak and timing | Day columns grow from the baseline (right → left); evening share; hourly mini chart | 228 on Tuesday · 44.5% after 17:00 |
 | 6 | Needs | Bars draw; investment vs residence | 33 / 22 / 4 · 35 vs 4 |
 | 7 | Deals | 14 tiles pop; 8 fill as documented; value counter | 466,367.50 OMR · average 58,295.94 |
-| 8 | Projects | Share bars in the order they are named | جود 58.1% · حي الوفاء 30.3% · رِواق 11.6% |
+| 8 | Projects | Share bars in the order they are named | جود 58.1% · حي الوفاء 30.3% · وادي صفا 11.6% (client correction: the sales form recorded «رِواق») |
 | 9 | Last day | Deal dots stack per day; Thursday highlighted | 9 of 14 |
 | 10 | Continues | KPI counters | 709 · 6 · 41 · 23 |
 | 11 | Thanks | Ministry × initiative lockup | — |

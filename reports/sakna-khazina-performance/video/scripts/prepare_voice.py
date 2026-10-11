@@ -17,19 +17,57 @@ SCENE_GAP, INNER_GAP, COMMA_GAP, LEAD = 0.62, 0.42, 0.26, 0.10
 INNER_LONG = {0, 2}
 SCENES = ['intro', 'initiative', 'participation', 'customers', 'peak', 'needs', 'deals', 'developers', 'lastday', 'continues', 'thanks', 'closing']
 
-raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(SRC), '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True, check=True).stdout
-x = np.frombuffer(raw, dtype=np.float32).copy()
-log = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(SRC), '-af', 'silencedetect=noise=-40dB:d=0.35', '-f', 'null', '-'], capture_output=True, text=True).stderr
-ev = [(l.split('silence_')[1].split(':')[0], float(l.split(': ')[1].split()[0])) for l in log.splitlines() if 'silence_start' in l or 'silence_end' in l]
-sil, s = [], None
-for k, v in ev:
-    if k == 'start':
-        s = v
-    elif s is not None:
-        sil.append((s, v)); s = None
+# Scene re-recordings spliced over the original take (same voice/model; pause pattern and level verified to match):
+#   developers — client correction 2026-10-11: Al Ahly Sabbour's project is «وادي صفا», not «رِواق»
+PATCHES = {'developers': V / 'build/voice/fix_b.mp3'}
+
+
+def decode(path):
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(path), '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True, check=True).stdout
+    return np.frombuffer(raw, dtype=np.float32).copy()
+
+
+def detect(path):
+    log = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(path), '-af', 'silencedetect=noise=-40dB:d=0.35', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    ev = [(l.split('silence_')[1].split(':')[0], float(l.split(': ')[1].split()[0])) for l in log.splitlines() if 'silence_start' in l or 'silence_end' in l]
+    out, st = [], None
+    for k, v in ev:
+        if k == 'start':
+            st = v
+        elif st is not None:
+            out.append((st, v)); st = None
+    if st is not None:
+        out.append((st, None))
+    return out
+
+
+def write_wav(path, y):
+    with wave.open(str(path), 'wb') as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
+        w.writeframes((np.clip(y, -1, 1) * 32767).astype(np.int16).tobytes())
+
+
+x = decode(SRC)
+if PATCHES:
+    # speech span of every scene in the original take, from the long-pause structure
+    longs = [(a, b) for a, b in detect(SRC) if b is not None and b - a >= 0.9 and a > 0.01]
+    bounds = [lp for i, lp in enumerate(longs) if i not in INNER_LONG]
+    spans = [(0.0 if i == 0 else bounds[i - 1][1], bounds[i][0] if i < len(bounds) else len(x) / SR) for i in range(len(SCENES))]
+    for sid, f in sorted(PATCHES.items(), key=lambda kv: -SCENES.index(kv[0])):
+        a, b = spans[SCENES.index(sid)]
+        p = decode(f)
+        env = np.abs(p) > 10 ** (-40 / 20)
+        i0, i1 = np.argmax(env), len(p) - np.argmax(env[::-1])
+        p = p[max(0, i0 - int(.02 * SR)):i1 + int(.05 * SR)]
+        orig = x[int(a * SR):int(b * SR)]
+        p *= np.sqrt(np.mean(orig ** 2) / max(np.mean(p ** 2), 1e-12))        # match level to the original sentence
+        x = np.concatenate([x[:int(a * SR)], p, x[int(b * SR):]])
+        print(f'patched {sid}: {b - a:.2f}s -> {len(p) / SR:.2f}s')
+    SRC = OUT / 'take1_patched.wav'
+    write_wav(SRC, x)
+sil = detect(SRC)
 dur = len(x) / SR
-if s is not None:
-    sil.append((s, dur))
+sil = [(a, dur if b is None else b) for a, b in sil]
 
 pieces, t_out, scene_starts, long_i = [], 0.0, [], 0
 fade = int(0.012 * SR)

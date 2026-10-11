@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>تقرير الأداء — سكنة وخزينة × وصول — Motion 9:16</title>
+<!-- Deterministic, time-driven composition — vertical 9:16 layout (same timeline, data and motion as composition.html). window.render(t) seeks every animation to t seconds.
+     Motion: Sukna motion system (ascend, two beats, lines lead) + WUSOOL signatures (settle, baseline, arrival path).
+     Data: ../build/video_data.js (generated from data/aggregates/metrics.json + narration timing). -->
+<style>
+@font-face { font-family: 'Changa'; src: url('../../../../brand/fonts/Changa-Variable.ttf') format('truetype'); font-weight: 200 800; }
+@font-face { font-family: 'Plex'; src: url('../../../../brand/fonts/IBMPlexSansArabic-Regular.ttf'); font-weight: 400; }
+@font-face { font-family: 'Plex'; src: url('../../../../brand/fonts/IBMPlexSansArabic-Medium.ttf'); font-weight: 500; }
+@font-face { font-family: 'Plex'; src: url('../../../../brand/fonts/IBMPlexSansArabic-SemiBold.ttf'); font-weight: 600; }
+@font-face { font-family: 'Plex'; src: url('../../../../brand/fonts/IBMPlexSansArabic-Bold.ttf'); font-weight: 700; }
+@font-face { font-family: 'Almarai'; src: url('../../assets/fonts/almarai-arabic-700-normal.woff2') format('woff2'); font-weight: 700; unicode-range: U+0600-06FF, U+FB50-FDFF, U+FE70-FEFF; }
+@font-face { font-family: 'Almarai'; src: url('../../assets/fonts/almarai-latin-700-normal.woff2') format('woff2'); font-weight: 700; unicode-range: U+0000-00FF, U+2000-206F; }
+:root {
+  --ink: #0B2A1E; --ink2: #0F3527; --deep: #00563A; --green: #02C277; --yellow: #F0FF0B; --paper: #F6F8F5;
+  --midnight: #014750; --aqua: #66C8C9; --marigold: #FFCC31; --muted: #9DB5A9; --mutedL: #55655D;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+body { font-family: 'Plex', sans-serif; color: #fff; -webkit-font-smoothing: antialiased; letter-spacing: 0; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+.scene { position: absolute; inset: 0; display: none; }
+.bg { position: absolute; inset: 0; }
+.bg.dark { background: radial-gradient(1400px 900px at 78% 18%, #12402F 0%, var(--ink) 58%, #071E15 100%); }
+.bg.paper { background: var(--paper); }
+.bg.mid { background: radial-gradient(1300px 900px at 75% 20%, #035A65 0%, var(--midnight) 55%, #01353C 100%); }
+.grain { position: absolute; inset: 0; opacity: .05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>"); }
+.asc { position: absolute; height: 2px; width: 1500px; transform-origin: 100% 50%; }
+.edge { position: absolute; top: 0; bottom: 0; width: 14px; left: 0; background: var(--yellow); }
+.c { position: absolute; }
+.num { unicode-bidi: isolate; direction: ltr; font-variant-numeric: tabular-nums lining-nums; }
+.kicker { font: 600 26px/1.3 'Plex'; color: var(--green); }
+.paperS .kicker { color: #0A7F52; }
+.h { font: 700 68px/1.24 'Changa'; color: #fff; }
+.paperS .h { color: var(--ink); }
+.h .y { color: var(--yellow); }
+.paperS .h .g { color: #0A7F52; }
+.rule { height: 4px; width: 150px; background: var(--green); transform-origin: 100% 50%; }
+.src { position: absolute; right: 110px; left: 80px; top: 1560px; font: 500 21px/1.45 'Plex'; color: rgba(255,255,255,.55); }
+.paperS .src { color: var(--mutedL); }
+.chrome { position: absolute; top: 196px; right: 110px; left: 80px; display: flex; justify-content: space-between; font: 600 21px/1 'Plex'; color: rgba(255,255,255,.62); z-index: 50; }
+.chrome .w { font-family: 'Almarai'; font-weight: 700; color: rgba(255,255,255,.75); }
+.chrome.lt { color: var(--mutedL); } .chrome.lt .w { color: var(--midnight); }
+#prog { position: absolute; right: 0; bottom: 0; height: 6px; background: var(--green); z-index: 60; width: 1080px; transform-origin: 100% 50%; }
+/* cards */
+.kpi { position: absolute; }
+.kpi .v { font: 800 130px/1 'Changa'; color: #fff; }
+.kpi .l { font: 600 32px/1.35 'Plex'; color: rgba(255,255,255,.86); margin-top: 18px; }
+.kpi .s { font: 500 24px/1.4 'Plex'; color: var(--muted); margin-top: 6px; }
+.kpi .bar { height: 4px; background: var(--green); width: 100%; margin-bottom: 30px; transform-origin: 100% 50%; }
+.chip { position: absolute; display: flex; align-items: baseline; gap: 22px; padding: 26px 34px; border-top: 2px solid rgba(255,255,255,.18); width: 890px; }
+.chip .v { font: 800 76px/1 'Changa'; color: #fff; min-width: 170px; text-align: left; }
+.chip .l { font: 600 30px/1.35 'Plex'; color: rgba(255,255,255,.88); }
+.card { position: absolute; padding: 46px 52px; clip-path: polygon(0 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 34px 100%, 0 calc(100% - 34px)); }
+.card .lab { font: 700 27px/1.3 'Plex'; color: var(--ink); opacity: .8; }
+.card .t { font: 700 58px/1.25 'Changa'; color: var(--ink); margin-top: 14px; }
+.card .d { font: 500 27px/1.45 'Plex'; color: var(--ink); margin-top: 16px; opacity: .85; }
+.node { position: absolute; width: 300px; text-align: center; }
+.node .dot { width: 40px; height: 40px; border-radius: 50%; background: var(--yellow); margin: 0 auto 22px; box-shadow: 0 0 0 10px rgba(240,255,11,.12); }
+.node .t { font: 700 36px/1.3 'Plex'; color: #fff; }
+.col { position: absolute; bottom: 0; border-radius: 8px 8px 0 0; transform-origin: 50% 100%; }
+.lbl { position: absolute; text-align: center; }
+.hbar { position: absolute; height: 54px; border-radius: 6px 0 0 6px; transform-origin: 100% 50%; }
+.tile { position: absolute; width: 112px; height: 112px; border-radius: 14px; border: 3px solid rgba(255,255,255,.35); }
+.tile.f { background: var(--green); border-color: var(--green); }
+.ddot { position: absolute; width: 46px; height: 46px; border-radius: 50%; background: rgba(255,255,255,.85); }
+.ddot.hl { background: var(--yellow); }
+.big { font: 800 320px/0.92 'Changa'; color: var(--yellow); }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="prog"></div>
+<script src="../build/video_data.js"></script>
+<script src="../build/logo_paths.js"></script>
+<script>
+// ------------------------------------------------------------------ engine
+const S = document.getElementById('stage');
+const EZ = { ascend: 'cubic-bezier(.16,1,.3,1)', draw: 'cubic-bezier(.65,0,.35,1)', std: 'cubic-bezier(.2,0,0,1)',
+  exit: 'cubic-bezier(.3,0,.8,.15)', pop: 'cubic-bezier(.34,1.56,.64,1)', count: 'cubic-bezier(.33,0,.12,1)', lin: 'linear' };
+const fmt = (v, dec = 0) => v.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+const N = s => `<span class="num">${s}</span>`;
+const TICKS = [];                       // per-frame callbacks (counters, visibility)
+function el(parent, cls, html = '', style = {}) {
+  const e = document.createElement('div'); if (cls) e.className = cls; e.innerHTML = html;
+  Object.assign(e.style, style); parent.appendChild(e); return e;
+}
+function A(e, kf, t, d, ease = EZ.ascend, fill = 'both') { e.animate(kf, { delay: t * 1000, duration: d * 1000, easing: ease, fill }); }
+// Settle: short travel + fade + focus from 8px blur (WUSOOL) — y-rise variant
+function rise(e, t, d = .8, dy = 46) { A(e, [{ opacity: 0, transform: `translateY(${dy}px)`, filter: 'blur(8px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], t, d); }
+// Sukna ascend: along the 7.5° line, from lower-left to upper-right
+function ascend(e, t, d = .9, k = 1) { A(e, [{ opacity: 0, transform: `translate(${-56 * k}px, ${7.4 * k}px)` }, { opacity: 1, transform: 'none' }], t, d); }
+function fadeIn(e, t, d = .5) { A(e, [{ opacity: 0 }, { opacity: 1 }], t, d, EZ.std); }
+function drawX(e, t, d = .7) { A(e, [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], t, d, EZ.draw); }
+function growY(e, t, d = .8) { A(e, [{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)' }], t, d, EZ.count); }
+function pop(e, t, d = .32) { A(e, [{ opacity: 0, transform: 'scale(0)' }, { opacity: 1, transform: 'scale(1)' }], t, d, EZ.pop); }
+// exit from whatever opacity the element currently has (implicit start keyframe), so already-hidden items stay hidden
+function out(e, t, d = .3) { A(e, [{ translate: '0 0' }, { opacity: 0, translate: '0 -18px' }], t, d, EZ.exit, 'forwards'); }
+function counter(e, t, d, to, dec = 0, pre = '', post = '') {
+  TICKS.push(tt => { const p = Math.min(1, Math.max(0, (tt - t) / d)); const k = 1 - Math.pow(1 - p, 3.2);
+    e.innerHTML = pre + N(fmt(to * k, dec)) + post; });
+}
+// Scene shell: background (wipe-in from the right with a yellow leading edge when the world changes), chrome, exits
+let prevTone = null;
+function scene(id, tone, withChrome = true) {
+  const T = window.T.find(x => x.id === id);
+  const root = el(S, 'scene' + (tone === 'paper' ? ' paperS' : ''));
+  const bg = el(root, 'bg ' + tone);
+  if (tone !== 'paper') el(bg, 'grain');
+  // slow ascent lines (decor, ≤ 12 px/s drift)
+  if (tone !== 'paper') for (let i = 0; i < 3; i++) {
+    const l = el(bg, 'asc', '', { right: '-300px', top: (420 + i * 520) + 'px', background: `rgba(2,194,119,${.07 + i * .02})`, transform: 'rotate(-7.5deg)' });
+    A(l, [{ transform: 'rotate(-7.5deg) translateX(0)' }, { transform: `rotate(-7.5deg) translateX(${-90 - i * 30}px)` }], T.t0, T.t1 - T.t0 + 1, EZ.lin);
+  }
+  const changes = prevTone !== null && prevTone !== tone;
+  if (changes) {           // world change: reveal the new background right → left, edge leads
+    A(bg, [{ clipPath: 'inset(0 0 0 100%)' }, { clipPath: 'inset(0 0 0 0%)' }], T.t0, .62, EZ.draw);
+    const edge = el(root, 'edge');
+    A(edge, [{ transform: 'translateX(1080px)' }, { transform: 'translateX(-14px)' }], T.t0, .62, EZ.draw);
+  }
+  prevTone = tone;
+  const content = el(root, 'content', '', { position: 'absolute', inset: 0 });
+  if (withChrome) {
+    el(bg, 'chrome' + (tone === 'paper' ? ' lt' : ''), `<div>تقرير الأداء · مبادرة سكنة وخزينة · ${N('2026')}</div><div class="w">وصول للاستثمار</div>`);
+  }
+  TICKS.push(tt => { root.style.display = (tt >= T.t0 - .02 && tt < T.t1 + .7) ? 'block' : 'none'; });
+  // content exits just before the next scene (faster than entrances)
+  const t0 = T.t0 + (changes ? .35 : 0);
+  return { root, c: content, T, t0, d: T.t1 - T.t0, v0: T.v0, v1: T.v1, vd: T.v1 - T.v0, exitAt: T.t1 - .32 };
+}
+function exitAll(sc) { [...sc.c.children].forEach(ch => out(ch, sc.exitAt)); }
+const R = 110, LM = 80, CW = 890;           // 9:16 safe frame: right 110 · left 80 · top 250 · bottom 300
+function head(sc, kicker, h, t, top = 290) {
+  const box = el(sc.c, 'c', `<div class="kicker">${kicker}</div><div class="h" style="margin-top:6px">${h}</div><div class="rule" style="margin-top:24px"></div>`, { right: R + 'px', top: top + 'px', width: CW + 'px' });
+  const [k, hh, r] = box.children;
+  r.style.transform = 'rotate(-7.5deg)';
+  rise(k, t, .6, 20); rise(hh, t + .08); A(r, [{ transform: 'rotate(-7.5deg) scaleX(0)' }, { transform: 'rotate(-7.5deg) scaleX(1)' }], t + .3, .6, EZ.draw);
+  return box;
+}
+function source(sc) { const s = el(sc.c, 'src', D.source); fadeIn(s, sc.t0 + 1.2, .5); }
+const at = (sc, f) => sc.v0 + sc.vd * f;          // time at fraction f of the scene's narration
+
+// ------------------------------------------------------------------ 01 intro (9:16)
+(() => {
+  const sc = scene('intro', 'dark', false);
+  const W = LOGO.width, H = LOGO.height, sz = 430;
+  const holder = el(sc.c, 'c', `<svg viewBox="0 0 ${W} ${H}" width="${sz * W / H}" height="${sz}" style="overflow:visible">${LOGO.paths.map((d, i) => `<path id="lp${i}" d="${d}" fill="#F0FF0B" style="transform-box:fill-box"/>`).join('')}</svg>`,
+    { left: (540 - sz * W / H / 2) + 'px', top: '700px' });
+  const P = i => document.getElementById('lp' + i), RL = LOGO.roles, t = .15;
+  const drawR = (i, d) => { P(i).style.transformOrigin = 'right center'; A(P(i), [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], d, .6, EZ.draw); };
+  const ascR = (i, d) => A(P(i), [{ opacity: 0, transform: 'translate(-60px, 7.9px)' }, { opacity: 1, transform: 'none' }], d, .7, EZ.ascend);
+  const popR = (i, d) => { P(i).style.transformOrigin = 'center'; A(P(i), [{ opacity: 0, transform: 'scale(0)' }, { opacity: 1, transform: 'scale(1)' }], d, .26, EZ.pop); };
+  RL.wawRules.forEach((i, k) => drawR(i, t + k * .12));
+  RL.sukna.forEach(i => ascR(i, t + .15));
+  RL.suknaDots.forEach((i, k) => popR(i, t + .65 + k * .07));
+  RL.waw.forEach(i => A(P(i), [{ opacity: 0, transform: 'translateY(-24px)' }, { opacity: 1, transform: 'none' }], t + .85, .42, EZ.pop));
+  RL.khazinah.forEach((i, k) => ascR(i, t + 1.15 + k * .08));
+  RL.underRules.forEach((i, k) => drawR(i, t + 1.45 + k * .12));
+  RL.khazinahDots.forEach((i, k) => popR(i, t + 1.65 + k * .07));
+  const vo = window.VO;
+  A(holder, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(.92)' }], vo - .3, .4, EZ.exit, 'forwards');
+  const cb = el(sc.c, 'c', `<img src="../../../../brand/logo/cobrand/sukna-w-khazinah_x_mhup_on-dark.svg" style="width:640px;display:block">`, { right: R + 'px', top: '300px' });
+  rise(cb, vo - .05, .8, 24);
+  const k = el(sc.c, 'c kicker', `أكتوبر العمران ${N('2026')} · ركن المبادرة`, { right: R + 'px', top: '640px', fontSize: '30px' });
+  const t1 = el(sc.c, 'c', 'تقرير<br>الأداء', { right: (R - 6) + 'px', top: '690px', font: "800 190px/1.02 'Changa'", color: '#fff' });
+  const t2 = el(sc.c, 'c', 'مبادرة سكنة وخزينة', { right: R + 'px', top: '1100px', font: "700 80px/1.2 'Changa'", color: 'var(--yellow)' });
+  const t3 = el(sc.c, 'c', `أداء فريق وصول للاستثمار في ركن المبادرة<br>${N('5–8')} أكتوبر ${N('2026')}`, { right: R + 'px', top: '1220px', width: CW + 'px', font: "500 38px/1.45 'Plex'", color: 'rgba(255,255,255,.88)' });
+  rise(k, vo + .05, .6, 20); ascend(t1, vo - .05, 1.0, 1.4); ascend(t2, vo + 1.45, .9); rise(t3, vo + 3.6, .8, 24);
+  const ln = el(sc.c, 'c', '', { right: R + 'px', top: '1390px', width: '600px', height: '3px', background: 'var(--green)', transformOrigin: '100% 50%', transform: 'rotate(-7.5deg)' });
+  A(ln, [{ transform: 'rotate(-7.5deg) scaleX(0)' }, { transform: 'rotate(-7.5deg) scaleX(1)' }], vo + 3.4, .9, EZ.draw);
+  const by = el(sc.c, 'c', `<div style="font:600 24px/1 Plex;color:rgba(255,255,255,.7);margin-bottom:16px">أعدّه</div><img src="../../logos/WUSOOL_Reversed.svg" style="width:330px;display:block">`, { left: LM + 'px', top: '1470px' });
+  rise(by, vo + 5.2, .8, 20);
+  exitAll(sc);
+})();
+
+// ------------------------------------------------------------------ 02 initiative (paper)
+(() => {
+  const sc = scene('initiative', 'paper');
+  head(sc, 'عن المبادرة', 'من استفادةٍ واحدة…<br>إلى <span class="g">استفادتين</span>', sc.t0 + .1);
+  const old = el(sc.c, 'c', `<div style="font:700 28px/1.3 Plex;color:var(--mutedL)">النظام السابق</div><div style="font:700 62px/1.25 Changa;color:var(--ink);margin-top:10px">استفادة سكنية واحدة<br>مدى الحياة</div><div style="font:500 32px/1.45 Plex;color:var(--mutedL);margin-top:12px">غالبًا عبر الحصول على أرض… ثم تنتهي الاستفادة.</div>`,
+    { right: R + 'px', top: '720px', padding: '44px 50px', border: '3px solid #C9D6CF', width: CW + 'px' });
+  rise(old, sc.t0 + .9, .8, 30);
+  A(old, [{ opacity: 1, translate: '0 0' }, { opacity: 0, translate: '-80px 0' }], at(sc, .44), .45, EZ.exit, 'forwards');
+  const c1 = el(sc.c, 'card', `<div class="lab">١ · الاستفادة الأولى — سكنة</div><div class="t">شقة في مدينة السلطان هيثم</div><div class="d">المسكن أولًا: شراء شقة ضمن البرنامج.</div>`,
+    { right: R + 'px', top: '620px', width: CW + 'px', height: '320px', background: 'var(--green)' });
+  const gap = el(sc.c, 'c', `<div style="display:flex;align-items:center;gap:34px;justify-content:center"><div style="font:800 150px/1 Changa;color:var(--ink)">${N('5')}</div><div class="gl" style="height:4px;width:200px;background:var(--ink)"></div><div style="font:700 34px/1.35 Plex;color:var(--ink)">سنوات من<br>استلام الشقة</div></div>`,
+    { right: R + 'px', top: '980px', width: CW + 'px' });
+  const gl = gap.querySelector('.gl'); gl.style.transformOrigin = '100% 50%'; gl.style.transform = 'rotate(-7.5deg)';
+  const c2 = el(sc.c, 'card', `<div class="lab">٢ · الاستفادة الثانية — استحقاق جديد</div><div class="t">أرض، أو دعم حكومي لوحدة سكنية</div><div class="d">الاختيار بين أرض أو دعم لشقة أو فيلا.</div>`,
+    { right: R + 'px', top: '1190px', width: CW + 'px', height: '320px', background: 'var(--yellow)' });
+  const note = el(sc.c, 'c', 'والشقة الأولى تبقى للمستفيد — <b>خزينة</b>: يحتفظ بها، أو يؤجرها، أو يتصرف فيها لاحقًا.', { right: R + 'px', top: '1535px', width: CW + 'px', font: "500 30px/1.45 'Plex'", color: 'var(--ink)' });
+  ascend(c1, at(sc, .5), .9, 1.2);
+  rise(gap, at(sc, .66), .7, 26); A(gl, [{ transform: 'rotate(-7.5deg) scaleX(0)' }, { transform: 'rotate(-7.5deg) scaleX(1)' }], at(sc, .64), .7, EZ.draw);
+  ascend(c2, at(sc, .78), .9, 1.2);
+  rise(note, at(sc, .93), .7, 20);
+  exitAll(sc);
+})();
+
+// ------------------------------------------------------------------ 03 participation
+(() => {
+  const sc = scene('participation', 'dark');
+  head(sc, 'ملخص المشاركة', 'أربعة أيام في ركن المبادرة', sc.t0 + .1);
+  const K = [[D.days, 'أيام معرض', `${N('5–8')} أكتوبر ${N('2026')}`], [D.hours, 'ساعة تشغيل', `يوميًا ${N('9:00–22:00')}`], [D.consultants, 'مستشارًا عقاريًا متعاقدًا', 'لفريق وصول في المعرض']];
+  K.forEach(([v, l, s], i) => {
+    const k = el(sc.c, 'c', `<div class="bar" style="height:4px;background:var(--green);width:100%;margin-bottom:22px;transform-origin:100% 50%"></div><div style="display:flex;align-items:flex-end;gap:34px"><div class="v" style="font:800 124px/1 Changa;min-width:250px;text-align:right"></div><div><div style="font:700 36px/1.3 Plex">${l}</div><div style="font:500 26px/1.4 Plex;color:var(--muted);margin-top:6px">${s}</div></div></div>`,
+      { right: R + 'px', top: (590 + i * 220) + 'px', width: CW + 'px' });
+    const t = sc.t0 + .6 + i * .35; rise(k, t, .7, 30); drawX(k.querySelector('.bar'), t, .7); counter(k.querySelector('.v'), t + .1, 1.1, v);
+  });
+  const steps = ['يستقبل', 'يفهم الاحتياج', 'يطابق', 'يوثّق'];
+  const line = el(sc.c, 'c', '', { right: (R + 110) + 'px', top: '1290px', width: (CW - 220) + 'px', height: '4px', background: 'rgba(255,255,255,.25)', transformOrigin: '100% 50%' });
+  drawX(line, at(sc, .62), 2.6);
+  steps.forEach((s, i) => {
+    const n = el(sc.c, 'node', `<div class="dot"></div><div class="t" style="font-size:30px">${s}</div>`, { right: (R + i * 223 - 38) + 'px', top: '1270px', width: '300px' });
+    const t = at(sc, .66 + i * .085); pop(n.querySelector('.dot'), t); rise(n.querySelector('.t'), t + .08, .6, 20);
+  });
+  source(sc); exitAll(sc);
+})();
+
+// ------------------------------------------------------------------ 04 customers
+(() => {
+  const sc = scene('customers', 'dark');
+  const k = el(sc.c, 'c kicker', 'قاعدة العملاء', { right: R + 'px', top: '300px' }); rise(k, sc.t0 + .1, .6, 20);
+  const big = el(sc.c, 'c big', N('0'), { right: (R - 10) + 'px', top: '360px' });
+  rise(big, sc.t0 + .15, .8, 40); counter(big, sc.v0 + .2, 2.2, D.customers);
+  const lab = el(sc.c, 'c', 'عميلًا مسجّلًا<br>في ركن المبادرة', { right: R + 'px', top: '680px', font: "700 66px/1.25 'Changa'", color: '#fff' });
+  rise(lab, sc.v0 + .5, .8);
+  const C = [[D.in_event, 'خلال أيام المعرض الأربعة'], [D.post_event, 'بعد انتهاء المعرض'], [D.duplicates, 'سجلات مكررة'], [D.consent_pct + '%', 'موافقة على سياسة الخصوصية']];
+  C.forEach(([v, l], i) => {
+    const c = el(sc.c, 'chip', `<div class="v" style="min-width:200px;text-align:right">${N(typeof v === 'number' ? fmt(v) : v)}</div><div class="l">${l}</div>`, { right: R + 'px', top: (900 + i * 150) + 'px' });
+    rise(c, at(sc, [.18, .3, .55, .78][i]), .7, 30);
+  });
+  source(sc); exitAll(sc);
+})();
+
+// ------------------------------------------------------------------ 05 peak day + evening (paper)
+(() => {
+  const sc = scene('peak', 'paper');
+  head(sc, 'الأداء اليومي والتوقيت', `اليوم الثاني هو الأعلى…<br><span class="g">والمساء</span> الأهم`, sc.t0 + .1);
+  const base = 1050, maxH = 330, slot = CW / D.by_day.length, cw = 86, mx = Math.max(...D.by_day.map(d => d.n));
+  el(sc.c, 'c', '', { right: R + 'px', top: base + 'px', width: CW + 'px', height: '3px', background: 'var(--ink)' });
+  D.by_day.forEach((d, i) => {
+    const h = maxH * d.n / mx, right = R + i * slot + (slot - cw) / 2;
+    const col = el(sc.c, 'col', '', { right: right + 'px', top: (base - h) + 'px', width: cw + 'px', height: h + 'px', background: d.best ? 'var(--green)' : (d.ev ? 'var(--deep)' : '#A9C5B8') });
+    const t = sc.t0 + .7 + i * .12; growY(col, t, .9);
+    const v = el(sc.c, 'lbl', N(fmt(d.n)), { right: (right - 20) + 'px', width: (cw + 40) + 'px', top: (base - h - 54) + 'px', font: `${d.best ? 800 : 700} ${d.best ? 44 : 32}px/1 Changa`, color: 'var(--ink)' });
+    fadeIn(v, t + .6, .4);
+    const l = el(sc.c, 'lbl', `${d.wd}<br><span style="font-weight:500;color:var(--mutedL)">${N(d.d)} أكتوبر</span>`, { right: (right - 30) + 'px', width: (cw + 60) + 'px', top: (base + 14) + 'px', font: "600 23px/1.35 Plex", color: 'var(--ink)' });
+    fadeIn(l, t + .3, .4);
+  });
+  const pv = el(sc.c, 'c', `<div style="display:flex;align-items:flex-end;gap:30px"><div style="font:800 130px/1 Changa;color:var(--ink)">${N(D.evening_share + '%')}</div><div style="font:600 32px/1.4 Plex;color:var(--ink)">من تسجيلات أيام المعرض<br>بعد الساعة ${N('17:00')}</div></div>`,
+    { right: R + 'px', top: '1200px', width: CW + 'px' });
+  rise(pv, at(sc, .55), .8);
+  const hmx = Math.max(...D.by_hour.map(h => h.n)), hb = 1500, hs = CW / D.by_hour.length;
+  D.by_hour.forEach((h, i) => {
+    const hh = 120 * h.n / hmx, pk = D.peak_hours.includes(h.h);
+    const c = el(sc.c, 'col', '', { right: (R + i * hs + 6) + 'px', top: (hb - hh) + 'px', width: (hs - 12) + 'px', height: hh + 'px', background: pk ? 'var(--green)' : (h.h >= 17 ? 'var(--deep)' : '#B9CFC4'), borderRadius: '4px 4px 0 0' });
+    growY(c, at(sc, .6) + i * .04, .6);
+  });
+  const hl = el(sc.c, 'c', `توزيع التسجيلات على ساعات اليوم: ${N(9)} ← ${N(22)}`, { right: R + 'px', top: (hb + 12) + 'px', width: CW + 'px', textAlign: 'center', font: "500 22px/1 Plex", color: 'var(--mutedL)' });
+  fadeIn(hl, at(sc, .7), .4);
+  source(sc); exitAll(sc);
+})();
+
+// ------------------------------------------------------------------ 06 needs
+(() => {
+  const sc = scene('needs', 'dark');
+  head(sc, 'الاهتمامات والاحتياجات', 'الطلب يميل إلى <span class="y">الوحدات الأصغر</span>… وإلى الاستثمار', sc.t0 + .1);
+  const mx = Math.max(...D.bed.map(b => b.n)), Wb = 500;
+  D.bed.forEach((b, i) => {
+    const y = 640 + i * 110, w = Wb * b.n / mx;
+    const l = el(sc.c, 'c', b.l, { right: R + 'px', top: (y + 6) + 'px', width: '230px', font: "700 34px/1.2 Plex", color: '#fff' });
+    const bar = el(sc.c, 'hbar', '', { right: (R + 250) + 'px', top: y + 'px', width: w + 'px', background: i === 0 ? 'var(--yellow)' : 'rgba(255,255,255,.75)' });
+    const v = el(sc.c, 'c', N(b.n), { right: (R + 270 + w) + 'px', top: (y + 2) + 'px', font: "800 44px/1.1 Changa", color: '#fff' });
+    const t = sc.t0 + .8 + i * .2; fadeIn(l, t, .4); drawX(bar, t + .05, .9); fadeIn(v, t + .7, .3);
+  });
+  const nt = el(sc.c, 'c', `عدد الغرف في ملاحظات المستشارين (${N(D.bed_total)} سجلًا)`, { right: R + 'px', top: '980px', font: "500 24px/1.4 Plex", color: 'var(--muted)' });
+  fadeIn(nt, sc.t0 + 1.6, .4);
+  const inv = el(sc.c, 'c', `<div style="display:flex;gap:70px;align-items:flex-end"><div><div style="font:800 180px/1 Changa;color:var(--yellow)">${N(D.invest)}</div><div style="font:700 36px/1.3 Plex;margin-top:12px">ملاحظة: استثمار</div></div>
+    <div style="opacity:.7"><div style="font:800 110px/1 Changa">${N(D.resid)}</div><div style="font:700 32px/1.3 Plex;margin-top:12px">ملاحظات: سكن</div></div></div>`, { right: R + 'px', top: '1120px' });
+  rise(inv, at(sc, .62), .8);
+  source(sc); exitAll(sc);
+})();
+
+// ------------------------------------------------------------------ 07 deals
+(() => {
+  const sc = scene('deals', 'mid');
+  head(sc, 'الصفقات', `${N(D.deals)} صفقة مسجّلة…<br><span class="y">${N(D.documented)} موثقة بالكامل</span>`, sc.t0 + .1);
+  const ts = 108, tg = 22;
+  for (let i = 0; i < D.deals; i++) {
+    const r = Math.floor(i / 7), c = i % 7;
+    const tl = el(sc.c, 'tile', '', { right: (R + 8 + c * (ts + tg)) + 'px', top: (680 + r * (ts + tg)) + 'px', width: ts + 'px', height: ts + 'px' });
+    pop(tl, sc.t0 + .6 + i * .06, .36);
+    if (i < D.documented) A(tl, [{ background: 'rgba(0,0,0,0)', borderColor: 'rgba(255,255,255,.35)' }, { background: '#02C277', borderColor: '#02C277' }], at(sc, .3) + i * .07, .35, EZ.std);
+  }
+  const lg = el(sc.c, 'c', `<span style="display:inline-block;width:26px;height:26px;border-radius:6px;background:var(--green);vertical-align:-4px"></span> موثقة برمز الوحدة والسعر<br><span style="display:inline-block;width:26px;height:26px;border-radius:6px;border:3px solid rgba(255,255,255,.4);vertical-align:-4px"></span> قيد الاستكمال (${N(D.pending)})`,
+    { right: R + 'px', top: '960px', font: "600 28px/1.6 Plex", color: 'rgba(255,255,255,.88)' });
+  fadeIn(lg, at(sc, .42), .5);
+  const val = el(sc.c, 'c', '', { right: R + 'px', top: '1150px', width: CW + 'px' });
+  val.innerHTML = `<div class="vv" style="font:800 118px/1 Changa;color:#fff;direction:ltr;text-align:right"></div><div style="font:700 36px/1.35 Plex;color:#fff;margin-top:16px">ريال عُماني — قيمة الصفقات الموثقة</div><div style="font:500 30px/1.4 Plex;color:var(--aqua);margin-top:12px">متوسط الصفقة ${N(fmt(D.avg, 2))} ر.ع.</div>`;
+  rise(val, at(sc, .6), .8); counter(val.querySelector('.vv'), at(sc, .6), 2.0, D.value, 2);
+  source(sc); exitAll(sc);
+})();
+
+// ------------------------------------------------------------------ 08 projects (paper)
+(() => {
+  const sc = scene('developers', 'paper');
+  head(sc, 'الأداء حسب المشروع', `«${D.projects[0].p}» في المقدمة`, sc.t0 + .1);
+  const Wb = 560, mx = D.projects[0].value;
+  D.projects.forEach((p, i) => {
+    const y = 610 + i * 270, w = Wb * p.value / mx;
+    const lab = el(sc.c, 'c', `<div style="font:700 50px/1.15 Changa;color:var(--ink)">${p.p}</div><div style="font:500 28px/1.4 Plex;color:var(--mutedL)">${p.dev} · ${N(p.n)} ${p.n > 2 ? 'صفقات' : (p.n === 2 ? 'صفقتان' : 'صفقة')}</div>`, { right: R + 'px', top: y + 'px', width: CW + 'px' });
+    const bar = el(sc.c, 'hbar', '', { right: R + 'px', top: (y + 120) + 'px', width: w + 'px', height: '64px', background: i === 0 ? 'var(--green)' : 'var(--deep)' });
+    const v = el(sc.c, 'c', `<div style="font:800 52px/1 Changa;color:var(--ink)">${N(p.share + '%')}</div><div style="font:600 24px/1.4 Plex;color:var(--mutedL)">${N(fmt(p.value, 2))} ر.ع.</div>`, { right: (R + w + 26) + 'px', top: (y + 116) + 'px' });
+    const t = at(sc, [.04, .45, .72][i]); rise(lab, t, .6, 24); drawX(bar, t + .1, 1.0); fadeIn(v, t + .8, .4);
+  });
+  const nt = el(sc.c, 'c', `حصة كل مشروع من قيمة الصفقات الموثقة (${N(fmt(D.value, 2))} ر.ع.)`, { right: R + 'px', top: '1440px', width: CW + 'px', font: "500 24px/1.45 Plex", color: 'var(--mutedL)' });
+  fadeIn(nt, sc.t0 + 1.4, .4);
+  exitAll(sc);
+})();
+
+// ------------------------------------------------------------------ 09 last day
+(() => {
+  const sc = scene('lastday', 'dark');
+  head(sc, 'الصفقات حسب اليوم', 'القرار يأتي <span class="y">بعد المقارنة</span>', sc.t0 + .1);
+  const big = el(sc.c, 'c', `<div style="font:800 170px/1 Changa;color:var(--yellow)">${N(Math.max(...D.deal_days.map(d => d.n)))} <span style="font-size:84px;color:#fff">من ${N(D.deals)}</span></div><div style="font:700 36px/1.35 Plex;margin-top:12px">صفقات سُجّلت في اليوم الأخير للمعرض</div>`, { right: R + 'px', top: '560px' });
+  rise(big, at(sc, .12), .8);
+  const base = 1460, slot = CW / D.deal_days.length, mxn = Math.max(...D.deal_days.map(d => d.n));
+  D.deal_days.forEach((d, i) => {
+    const right = R + i * slot, hl = d.n === mxn;
+    for (let k = 0; k < d.n; k++) {
+      const dt = el(sc.c, 'ddot' + (hl ? ' hl' : ''), '', { right: (right + (slot - 44) / 2) + 'px', top: (base - 56 - k * 50) + 'px', width: '44px', height: '44px' });
+      pop(dt, sc.t0 + .5 + i * .18 + k * .09, .3);
+    }
+    const l = el(sc.c, 'lbl', `${d.wd}<br><span style="font-weight:500;color:var(--muted)">${N(d.d)} أكتوبر</span>`, { right: right + 'px', width: slot + 'px', top: (base + 8) + 'px', font: "600 24px/1.35 Plex", color: '#fff' });
+    fadeIn(l, sc.t0 + .5 + i * .18, .4);
+  });
+  source(sc); exitAll(sc);
+})();
+
+// ------------------------------------------------------------------ 10 continues
+(() => {
+  const sc = scene('continues', 'dark');
+  head(sc, 'ما بعد المعرض', 'الرحلة <span class="y">مستمرة</span>', sc.t0 + .1);
+  const K = [[D.pipeline, 'عميلًا في قاعدة المتابعة'], [D.pending, 'صفقات قيد الاستكمال'], [D.interested, 'عميلًا «مهتمًا» أو «جادًا»'], [D.post_event, 'تسجيلًا بعد انتهاء المعرض']];
+  K.forEach(([v, l], i) => {
+    const col = i % 2, row = Math.floor(i / 2);
+    const k = el(sc.c, 'kpi', `<div class="bar"></div><div class="v">${N(0)}</div><div class="l" style="font-size:30px">${l}</div>`, { right: (R + col * 470) + 'px', top: (600 + row * 420) + 'px', width: '420px' });
+    const t = at(sc, [.12, .55, .72, .82][i]); rise(k, t, .7, 30); drawX(k.querySelector('.bar'), t, .7); counter(k.querySelector('.v'), t + .1, 1.0, v);
+    if (i === 0) k.querySelector('.v').style.color = 'var(--yellow)';
+  });
+  source(sc); exitAll(sc);
+})();
+
+// ------------------------------------------------------------------ 11 thanks (paper)
+(() => {
+  const sc = scene('thanks', 'paper', false);
+  const cb = el(sc.c, 'c', `<img src="../../../../brand/logo/cobrand/sukna-w-khazinah_x_mhup.svg" style="width:860px;display:block">`, { left: '110px', top: '520px' });
+  rise(cb, sc.t0 + .4, .9, 30);
+  const t1 = el(sc.c, 'c', 'شكرًا لوزارة الإسكان<br>والتخطيط العمراني', { left: '80px', right: '80px', top: '850px', textAlign: 'center', font: "700 76px/1.3 'Changa'", color: 'var(--ink)' });
+  const t2 = el(sc.c, 'c', 'وللقائمين على مبادرة «سكنة وخزينة»،<br>على رؤيةٍ قرّبت الاستفادة من المواطن', { left: '80px', right: '80px', top: '1090px', textAlign: 'center', font: "500 38px/1.55 'Plex'", color: 'var(--ink)' });
+  rise(t1, sc.v0 + .1, .8); rise(t2, at(sc, .45), .8);
+  const r = el(sc.c, 'c', '', { left: '465px', top: '1260px', width: '150px', height: '4px', background: 'var(--green)', transform: 'rotate(-7.5deg)' });
+  fadeIn(r, at(sc, .5), .5);
+  exitAll(sc);
+})();
+
+// ------------------------------------------------------------------ 12 closing (WUSOOL)
+(() => {
+  const sc = scene('closing', 'mid', false);
+  const a1 = el(sc.c, 'c', 'الرحلة بدأت…', { right: R + 'px', top: '420px', font: "800 128px/1.15 'Changa'", color: '#fff' });
+  const a2 = el(sc.c, 'c', 'وما زالت<br>مستمرة.', { right: R + 'px', top: '580px', font: "800 128px/1.15 'Changa'", color: 'var(--aqua)' });
+  rise(a1, sc.v0, .9, 50); rise(a2, sc.v0 + 1.6, .9, 50);
+  const tx = el(sc.c, 'c', 'ووصول للاستثمار مستعدة لمواصلة دعم جهود وزارة الإسكان والتخطيط العمراني، والمساهمة في كل ما يخدم أهداف الوزارة والمستفيدين من مبادراتها.',
+    { right: R + 'px', top: '920px', width: CW + 'px', font: "500 36px/1.6 'Plex'", color: 'rgba(255,255,255,.9)' });
+  rise(tx, at(sc, .45), .8, 24);
+  const bl = el(sc.c, 'c', '', { right: R + 'px', top: '1180px', width: '220px', height: '6px', background: 'var(--aqua)', transformOrigin: '100% 50%' });
+  drawX(bl, at(sc, .5), .8);
+  const lg = el(sc.c, 'c', `<img src="../../logos/WUSOOL_Reversed.svg" style="width:460px;display:block">`, { left: '310px', top: '1300px' });
+  rise(lg, sc.v1 - .4, 1.0, 30);
+  const ct = el(sc.c, 'c', `<span class="num">+968 7771 4414</span><br><span class="num">wusoolinvest.com</span> · <span class="num">@wusoolinvest</span>`,
+    { left: '80px', right: '80px', top: '1470px', textAlign: 'center', font: "500 30px/1.6 'Plex'", color: 'rgba(255,255,255,.78)' });
+  fadeIn(ct, sc.v1, .6);
+})();
+
+// ------------------------------------------------------------------ progress (reads right → left) + seek
+const prog = document.getElementById('prog');
+A(prog, [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], 0, DURATION, EZ.lin);
+window.render = t => {
+  TICKS.forEach(f => f(t));
+  document.getAnimations().forEach(a => { a.pause(); a.currentTime = t * 1000; });
+};
+window.ready = document.fonts.ready.then(() => Promise.all([...document.images].map(im => im.complete ? 1 : new Promise(r => { im.onload = im.onerror = r; }))));
+const q = new URLSearchParams(location.search);
+if (q.has('t')) window.ready.then(() => render(parseFloat(q.get('t'))));
+</script>
+</body>
+</html>

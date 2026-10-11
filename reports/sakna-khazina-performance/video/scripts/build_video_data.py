@@ -20,6 +20,8 @@ for i, s in enumerate(sc):
     t1 = (VO + sc[i + 1]['voice_start'] - LEAD) if i + 1 < len(sc) else VO + VT['duration'] + HOLD
     T.append(dict(id=s['id'], t0=round(t0, 3), t1=round(t1, 3), v0=round(VO + s['voice_start'], 3), v1=round(VO + s['voice_end'], 3)))
 
+# Client correction (2026-10-11): Al Ahly Sabbour's project at the booth is «وادي صفا»; the sales form recorded «رِواق».
+PROJECT_NAME = {('الأهلي صبور', 'رِواق'): 'وادي صفا'}
 ev = [b for b in M['by_day'] if b['in_event']]
 best = max(ev, key=lambda b: b['registrations'])
 tags = {t['tag']: t['count'] for t in M['interest_tags']}
@@ -38,7 +40,7 @@ D = dict(
     invest=tags.get('استثمار', 0), resid=tags.get('سكن', 0),
     deals=M['deals_total'], documented=M['deals_documented'], pending=M['deals_pending'],
     value=M['deal_value_total'], avg=M['deal_value_avg'],
-    projects=[dict(p=r['name'], dev=r['developers'][0] if len(r['developers']) == 1 else '، '.join(r['developers']), value=r['value'], share=r['share'], n=r['documented'])
+    projects=[dict(p=PROJECT_NAME.get((r['developers'][0], r['name']), r['name']), dev=r['developers'][0] if len(r['developers']) == 1 else '، '.join(r['developers']), value=r['value'], share=r['share'], n=r['documented'])
               for r in M['by_project'] if r['value'] > 0],
     deal_days=[dict(wd=x['weekday'], d=int(x['date'][8:]), n=x['deals'], doc=x['documented']) for x in M['deal_days']],
     pipeline=M['open_pipeline'], interested=M['open_pipeline_interested'],
