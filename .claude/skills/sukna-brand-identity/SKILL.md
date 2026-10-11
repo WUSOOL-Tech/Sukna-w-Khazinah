@@ -23,7 +23,9 @@ Files live in this repo. Read them; never redraw or retype the logo.
 - Variants: `primary` (green on yellow, the default), `reverse` (yellow on green), `mark-green` (light backgrounds), `mark-yellow` (green, ink and dark), `mark-black`, `mark-white`, `mark-ink`, `mono-black-on-white`, `avatar-yellow`, `avatar-green`.
 - **Clear space 2D** (D = dot diameter ≈ 5.6% of logo width). **Minimum width** 120px on screen, 30mm in print.
 - Don't stretch, rotate, recolour, outline, add shadows or glow, split or rearrange the words, retype it in a font, put yellow on white, or place it on busy images.
-- Co-branding: ministry logo (وزارة الإسكان والتخطيط العمراني) first, on the right, then an ink vertical divider, then the initiative logo. Equal optical height, 2D gap. Partners go in a smaller separate row under «بالشراكة مع».
+- Co-branding: ministry logo (وزارة الإسكان والتخطيط العمراني) first, on the right, then an ink vertical divider, then the initiative logo. Equal height, 2D gap each side of the divider. Partners go in a smaller separate row under «بالشراكة مع».
+  - Ready lockups: `brand/logo/cobrand/sukna-w-khazinah_x_mhup_{white,transparent}_{1200,2400,4800}px.png` and `.pdf`. Ministry logo alone: `brand/partners/mhup/mhup_logo{,_transparent}.png` (official original in `source/`).
+  - Use the ministry logo as supplied: never recolour, crop or redraw it. Its navy and grey only read on **white or light** backgrounds, so co-branded layouts put the lockup on white or paper, never on green, yellow or ink.
 
 ## Colour
 | Name | HEX | RGB | CMYK* | Pantone* |

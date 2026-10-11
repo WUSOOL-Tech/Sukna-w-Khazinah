@@ -20,6 +20,7 @@ All files are generated from the approved Illustrator source (`source/sukna-w-kh
 | `pdf/` | Vector, RGB |
 | `pdf-cmyk/` | Vector, CMYK for printers (suggested values; proof before a print run) |
 | `ai/` | Adobe Illustrator, PDF-compatible `.ai` (fully editable vectors). `sukna-w-khazinah_original-artboards.ai` holds all three original artboards. |
+| `cobrand/` | Lockup with the Ministry of Housing and Urban Planning (white or transparent PNG at 1200/2400/4800px, PDF). For white or light backgrounds only. Built by `scripts/build_cobrand.py` |
 | `master/` | Master SVG + JSON geometry (paths, unit D, clear space, angle) |
 
 **Clear space:** 2D on every side (D = dot diameter ≈ 36 units ≈ 5.6% of the mark's width).
