@@ -24,8 +24,10 @@ Files live in this repo. Read them; never redraw or retype the logo.
 - **Clear space 2D** (D = dot diameter ≈ 5.6% of logo width). **Minimum width** 120px on screen, 30mm in print.
 - Don't stretch, rotate, recolour, outline, add shadows or glow, split or rearrange the words, retype it in a font, put yellow on white, or place it on busy images.
 - Co-branding: ministry logo (وزارة الإسكان والتخطيط العمراني) first, on the right, then an ink vertical divider, then the initiative logo. Equal height, 2D gap each side of the divider. Partners go in a smaller separate row under «بالشراكة مع».
-  - Ready lockups: `brand/logo/cobrand/sukna-w-khazinah_x_mhup_{white,transparent}_{1200,2400,4800}px.png` and `.pdf`. Ministry logo alone: `brand/partners/mhup/mhup_logo{,_transparent}.png` (official original in `source/`).
-  - Use the ministry logo as supplied: never recolour, crop or redraw it. Its navy and grey only read on **white or light** backgrounds, so co-branded layouts put the lockup on white or paper, never on green, yellow or ink.
+  - Ready lockups (all-vector): `brand/logo/cobrand/sukna-w-khazinah_x_mhup.{svg,pdf,ai}` + `_cmyk.pdf` for white or light backgrounds; `sukna-w-khazinah_x_mhup_on-dark.{svg,pdf,ai}` (yellow mark, white ministry logo) for Ink or dark backgrounds. PNGs at 1200/2400/4800px (`_white_`, `_transparent_`, `_on-dark_transparent_`).
+  - Ministry logo alone: vectors in `brand/partners/mhup/vector/mhup_logo_{full-colour,mono-black,mono-white}.{svg,pdf,ai}` (+ `_cmyk.pdf`); rasters `mhup_logo{,_transparent}.png`; official original JPG in `source/`. Ministry inks: navy `#03486F`, grey `#4A5662`.
+  - The vectors are a high-fidelity trace of the official JPG, not the ministry's own master. Replace them if the ministry supplies a vector file. The mono-white version still needs the ministry's approval before public use.
+  - Never recolour, crop or redraw the ministry logo beyond these versions. Never put a co-branded lockup on Sukna Green or Khazinah Yellow.
 
 ## Colour
 | Name | HEX | RGB | CMYK* | Pantone* |

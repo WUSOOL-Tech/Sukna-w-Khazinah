@@ -14,7 +14,7 @@ This repository holds the brand identity, design system and motion system.
 |---|---|
 | [`brand/guidelines/sukna-w-khazinah_brand-guidelines.pdf`](brand/guidelines/sukna-w-khazinah_brand-guidelines.pdf) | **Brand guidelines** (28 pages, Arabic): idea, logo analysis, versions, clear space, misuse, colour, type, graphic elements, voice, design system, motion, applications, co-branding |
 | [`brand/logo/`](brand/logo/) | Logo in **SVG · PNG · PDF (RGB + CMYK) · AI**, 10 variants + master geometry + original source |
-| [`brand/partners/mhup/`](brand/partners/mhup/) | Official Ministry of Housing and Urban Planning logo (original + trimmed + transparent) |
+| [`brand/partners/mhup/`](brand/partners/mhup/) | Ministry of Housing and Urban Planning logo: official original plus traced vectors (SVG · PDF · AI, colour / black / white) |
 | [`brand/design-system/`](brand/design-system/) | Tokens (JSON → CSS / Tailwind), components CSS, live reference `index.html`, contrast report |
 | [`brand/motion/`](brand/motion/) | Motion principles and tokens, `motion.css`, interactive logo reveal, MP4/GIF renders |
 | [`brand/fonts/`](brand/fonts/) | Changa + IBM Plex Sans Arabic (SIL OFL 1.1) |
@@ -34,6 +34,6 @@ This repository holds the brand identity, design system and motion system.
 
 ## Rebuild everything
 ```bash
-pip install reportlab           # plus poppler-utils (pdftocairo), ffmpeg, Node + Playwright
+pip install reportlab           # plus poppler-utils (pdftocairo), potrace, ffmpeg, Node + Playwright
 ./scripts/build_all.sh
 ```

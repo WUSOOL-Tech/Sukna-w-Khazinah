@@ -4,12 +4,14 @@
 Input   brand/partners/mhup/source/mhup_logo_original.jpg   (official file, kept untouched)
 Outputs brand/partners/mhup/mhup_logo.png                   (trimmed, white background)
         brand/partners/mhup/mhup_logo_transparent.png       (trimmed, background removed, colours kept)
-        brand/logo/cobrand/sukna-w-khazinah_x_mhup_{white,transparent}_<w>px.png
-        brand/logo/cobrand/sukna-w-khazinah_x_mhup.pdf
+        brand/partners/mhup/vector/*                        (traced vectors, via scripts/vectorize_mhup.py)
+        brand/logo/cobrand/sukna-w-khazinah_x_mhup[_on-dark].{svg,pdf,ai}  (all-vector lockups)
+        brand/logo/cobrand/sukna-w-khazinah_x_mhup_cmyk.pdf
+        brand/logo/cobrand/sukna-w-khazinah_x_mhup_{white,transparent,on-dark_transparent}_<w>px.png
 
 Lockup (RTL): ministry logo on the right, then an Ink vertical divider, then the initiative logo.
 Both logos have the same height; the gap on each side of the divider is 2D (D = logo dot diameter).
-Run scripts/build_logo.py first. Usage: python3 scripts/build_cobrand.py
+Requires potrace. Run scripts/build_logo.py first. Usage: python3 scripts/build_cobrand.py
 """
 import os
 import subprocess
@@ -21,13 +23,25 @@ from reportlab.pdfgen import canvas
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import build_logo  # noqa: E402
+import vectorize_mhup  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MHUP = os.path.join(ROOT, "brand/partners/mhup")
 SOURCE = os.path.join(MHUP, "source/mhup_logo_original.jpg")
-MARK_PDF = os.path.join(ROOT, "brand/logo/pdf/sukna-w-khazinah_mark-green.pdf")
 OUT = os.path.join(ROOT, "brand/logo/cobrand")
-INK = (11, 42, 30)
+COL = {  # rgb, cmyk
+    "green": ((2, 194, 119), (75, 0, 70, 0)),
+    "yellow": ((240, 255, 11), (8, 0, 92, 0)),
+    "ink": ((11, 42, 30), (85, 50, 75, 65)),
+    "white": ((255, 255, 255), (0, 0, 0, 0)),
+    "navy": (vectorize_mhup.INKS["navy"]["rgb"], vectorize_mhup.INKS["navy"]["cmyk"]),
+    "grey": (vectorize_mhup.INKS["grey"]["rgb"], vectorize_mhup.INKS["grey"]["cmyk"]),
+}
+# lockup: (mark colour, divider colour, ministry navy-layer colour, ministry grey-layer colour)
+LOCKUPS = {
+    "": ("green", "ink", "navy", "grey"),            # white / light backgrounds
+    "_on-dark": ("yellow", "white", "white", "white"),  # Ink or dark backgrounds (see README)
+}
 MARK_W, MARK_H, DOT = 641.363, 531.059, 36.0
 WIDTHS = [1200, 2400, 4800]
 
@@ -62,53 +76,53 @@ def prepare_ministry():
     return clear
 
 
-def mark_png(height):
-    tmp = tempfile.mkdtemp()
-    stem = os.path.join(tmp, "mark")
-    subprocess.run(["pdftocairo", "-png", "-singlefile", "-transp", "-scale-to-x", "-1", "-scale-to-y", str(height),
-                    MARK_PDF, stem], check=True)
-    return Image.open(stem + ".png").convert("RGBA")
-
-
-def lockup(ministry, total_w, background):
-    # Work out the layout at unit height H, then scale to the requested width.
-    gap = 2 * DOT / MARK_H            # 2D relative to logo height
-    rule = 0.25 * DOT / MARK_H        # divider thickness = ¼D
-    margin = 2 * DOT / MARK_H         # clear space around the whole lockup
-    m_ratio = ministry.width / ministry.height
-    unit_w = 2 * margin + MARK_W / MARK_H + gap + rule + gap + m_ratio
-    h = round(total_w / unit_w)
-    W, Hh = total_w, round(h * (1 + 2 * margin))
-    canvas_im = Image.new("RGBA", (W, Hh), background)
-    x, y = round(margin * h), round(margin * h)
-    mark = mark_png(h)
-    canvas_im.alpha_composite(mark, (x, y))
-    x += mark.width + round(gap * h)
-    rule_px = max(2, round(rule * h))
-    canvas_im.alpha_composite(Image.new("RGBA", (rule_px, h), INK + (255,)), (x, y))
-    x += rule_px + round(gap * h)
-    m = ministry.resize((round(h * m_ratio), h), Image.LANCZOS)
-    canvas_im.alpha_composite(m, (min(x, W - m.width - round(margin * h)), y))
-    return canvas_im
-
-
-def lockup_pdf(ministry_png_path, ministry):
-    gap, rule, margin = 2 * DOT, 0.25 * DOT, 2 * DOT
-    m_w = MARK_H * ministry.width / ministry.height
-    W = 2 * margin + MARK_W + 2 * gap + rule + m_w
+def layout(mw, mh):
+    """Lockup geometry in logo units (the initiative mark is MARK_W × MARK_H)."""
+    margin, gap, rule = 2 * DOT, 2 * DOT, 0.25 * DOT
+    s = MARK_H / mh                                   # ministry scaled to the same height
+    rule_x = margin + MARK_W + gap
+    m_x = rule_x + rule + gap
+    W = m_x + mw * s + margin
     H = MARK_H + 2 * margin
-    path = os.path.join(OUT, "sukna-w-khazinah_x_mhup.pdf")
-    c = canvas.Canvas(path, pagesize=(W, H))
+    return dict(W=W, H=H, margin=margin, rule_x=rule_x, rule=rule, m_x=m_x, s=s)
+
+
+def hexcol(name):
+    return "#%02X%02X%02X" % COL[name][0]
+
+
+def write_svg(path, L, mark_paths, layers, colours):
+    mark, div, navy, grey = colours
+    f = build_logo.fmt
+    out = ['<?xml version="1.0" encoding="UTF-8"?>',
+           f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {f(L["W"])} {f(L["H"])}" width="{f(L["W"])}" '
+           f'height="{f(L["H"])}" role="img" aria-labelledby="t">',
+           '<title id="t">وزارة الإسكان والتخطيط العمراني × سكنة وخزينة</title>',
+           f'<path fill="{hexcol(mark)}" transform="translate({f(L["margin"])} {f(L["margin"])})" '
+           f'd="{"".join(build_logo.path_d(p) for p in mark_paths)}"/>',
+           f'<rect fill="{hexcol(div)}" x="{f(L["rule_x"])}" y="{f(L["margin"])}" width="{f(L["rule"])}" height="{f(MARK_H)}"/>',
+           f'<g transform="translate({f(L["m_x"])} {f(L["margin"])}) scale({L["s"]:.6f})">']
+    for (name, segs), col in zip(layers.items(), (navy, grey)):
+        out.append(f'<path fill="{hexcol(col)}" d="{vectorize_mhup.d_attr(segs)}"/>')
+    out += ["</g>", "</svg>"]
+    open(path, "w").write("\n".join(out) + "\n")
+
+
+def write_pdf(path, L, mark_paths, layers, colours, cmyk=False):
+    c = canvas.Canvas(path, pagesize=(L["W"], L["H"]), pageCompression=1)
     c.setTitle("Sukna w Khazinah × Ministry of Housing and Urban Planning")
-    c.setFillColorRGB(1, 1, 1)
-    c.rect(0, 0, W, H, stroke=0, fill=1)
-    # Initiative mark as vectors, straight from the master geometry.
-    r, g, b = (2 / 255, 194 / 255, 119 / 255)
-    c.setFillColorRGB(r, g, b)
-    p = c.beginPath()
-    for cmds in build_logo.extract_master()["paths"]:
-        for op, a in cmds:
-            pts = [(a[j] + margin, H - (a[j + 1] + margin)) for j in range(0, len(a), 2)]
+    H = L["H"]
+
+    def fill(name):
+        if cmyk:
+            c.setFillColorCMYK(*(v / 100 for v in COL[name][1]))
+        else:
+            c.setFillColorRGB(*(v / 255 for v in COL[name][0]))
+
+    def draw(segs, ox, oy, k=1.0):
+        p = c.beginPath()
+        for op, a in segs:
+            pts = [(ox + a[j] * k, H - (oy + a[j + 1] * k)) for j in range(0, len(a), 2)]
             if op == "M":
                 p.moveTo(*pts[0])
             elif op == "L":
@@ -117,25 +131,50 @@ def lockup_pdf(ministry_png_path, ministry):
                 p.curveTo(*pts[0], *pts[1], *pts[2])
             else:
                 p.close()
-    c.drawPath(p, stroke=0, fill=1, fillMode=1)
-    x = margin + MARK_W + gap
-    c.setFillColorRGB(*(v / 255 for v in INK))
-    c.rect(x, margin, rule, MARK_H, stroke=0, fill=1)
-    c.drawImage(ministry_png_path, x + rule + gap, margin, m_w, MARK_H, mask="auto")
+        c.drawPath(p, stroke=0, fill=1, fillMode=1)
+
+    mark, div, navy, grey = colours
+    fill(mark)
+    draw([seg for p in mark_paths for seg in p], L["margin"], L["margin"])
+    fill(div)
+    c.rect(L["rule_x"], H - L["margin"] - MARK_H, L["rule"], MARK_H, stroke=0, fill=1)
+    for segs, col in zip(layers.values(), (navy, grey)):
+        fill(col)
+        draw(segs, L["m_x"], L["margin"], L["s"])
     c.showPage()
     c.save()
 
 
+def render_png(pdf, png, width, background=None):
+    tmp = tempfile.mkdtemp()
+    stem = os.path.join(tmp, "x")
+    subprocess.run(["pdftocairo", "-png", "-singlefile", "-transp", "-scale-to-x", str(width), "-scale-to-y", "-1",
+                    pdf, stem], check=True)
+    im = Image.open(stem + ".png").convert("RGBA")
+    if background:
+        bg = Image.new("RGBA", im.size, background)
+        bg.alpha_composite(im)
+        im = bg.convert("RGB")
+    im.save(png, optimize=True)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
-    ministry = prepare_ministry()
+    prepare_ministry()
+    mw, mh, layers = vectorize_mhup.main()
+    mark_paths = build_logo.extract_master()["paths"]
+    L = layout(mw, mh)
+    base = os.path.join(OUT, "sukna-w-khazinah_x_mhup")
+    for suffix, colours in LOCKUPS.items():
+        write_svg(base + suffix + ".svg", L, mark_paths, layers, colours)
+        write_pdf(base + suffix + ".pdf", L, mark_paths, layers, colours)
+        write_pdf(base + suffix + ".ai", L, mark_paths, layers, colours)
+    write_pdf(base + "_cmyk.pdf", L, mark_paths, layers, LOCKUPS[""], cmyk=True)
     for w in WIDTHS:
-        lockup(ministry, w, (255, 255, 255, 255)).convert("RGB").save(
-            os.path.join(OUT, f"sukna-w-khazinah_x_mhup_white_{w}px.png"), optimize=True)
-        lockup(ministry, w, (255, 255, 255, 0)).save(
-            os.path.join(OUT, f"sukna-w-khazinah_x_mhup_transparent_{w}px.png"), optimize=True)
-    lockup_pdf(os.path.join(MHUP, "mhup_logo_transparent.png"), ministry)
-    print(f"ministry logo {ministry.width}x{ministry.height} → lockups in {OUT}")
+        render_png(base + ".pdf", f"{base}_white_{w}px.png", w, (255, 255, 255, 255))
+        render_png(base + ".pdf", f"{base}_transparent_{w}px.png", w)
+        render_png(base + "_on-dark.pdf", f"{base}_on-dark_transparent_{w}px.png", w)
+    print(f"lockups {L['W']:.0f} x {L['H']:.0f} units → {OUT}")
 
 
 if __name__ == "__main__":
